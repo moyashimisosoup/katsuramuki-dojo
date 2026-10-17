@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "cards": [
+    {
+      "id": "what-is-katsuramuki",
+      "category": "technique",
+      "title": "桂むきとは？",
+      "summary": "大根などを回し、包丁で薄い帯状に連続してむく日本料理の技法。単なる皮むきだけが目的ではありません。",
+      "evidence_type": "fact",
+      "review_status": "draft",
+      "source_ids": [
+        "tsuji-technique"
+      ]
+    },
+    {
+      "id": "why-practice",
+      "category": "training",
+      "title": "なぜ修業になるの？",
+      "summary": "左右の手の協調、刃の安定、厚さの均一さを同時に練習するため、包丁技術の基礎を学ぶ題材になります。",
+      "evidence_type": "fact",
+      "review_status": "draft",
+      "source_ids": [
+        "tsuji-training",
+        "study-2023"
+      ]
+    },
+    {
+      "id": "first-goal",
+      "category": "training",
+      "title": "まずは均一に",
+      "summary": "薄くむくことだけを急がず、一定の厚さで途切れずむく練習から始める、という指導方法があります。",
+      "evidence_type": "fact",
+      "review_status": "draft",
+      "source_ids": [
+        "tsuji-training",
+        "tsuji-practice"
+      ]
+    },
+    {
+      "id": "usuba-edo",
+      "category": "knife",
+      "title": "江戸型の薄刃包丁",
+      "summary": "野菜の細かな加工に用いられる和包丁の一種。先端がおおむね角形の形をしています。",
+      "evidence_type": "fact",
+      "review_status": "draft",
+      "source_ids": [
+        "tsuji-technique"
+      ]
+    },
+    {
+      "id": "usuba-kamagata",
+      "category": "knife",
+      "title": "鎌形薄刃包丁",
+      "summary": "薄刃包丁の形の一種。先端が尖った外形が特徴として挙げられます。",
+      "evidence_type": "fact",
+      "review_status": "draft",
+      "source_ids": [
+        "tsuji-technique"
+      ]
+    },
+    {
+      "id": "ken",
+      "category": "cuisine",
+      "title": "桂むきから、けんへ",
+      "summary": "桂むきした野菜を細く切り、刺身などの盛り付けに用いる『けん』へ仕立てられます。",
+      "evidence_type": "fact",
+      "review_status": "draft",
+      "source_ids": [
+        "tsuji-technique"
+      ]
+    },
+    {
+      "id": "name-kazuraobi",
+      "category": "history",
+      "title": "鬘帯に由来する説",
+      "summary": "『桂むき』という名は、長く垂れる鬘帯（かずらおび）に似ることから生まれたという説があります。語源は確定していません。",
+      "evidence_type": "theory",
+      "review_status": "draft",
+      "source_ids": [
+        "ndl-etymology"
+      ]
+    },
+    {
+      "id": "name-katsurame",
+      "category": "history",
+      "title": "桂女に由来する説",
+      "summary": "桂女（かつらめ）の頭に用いた布との形の類似を挙げる説もあります。諸説の一つとして扱います。",
+      "evidence_type": "theory",
+      "review_status": "draft",
+      "source_ids": [
+        "ndl-etymology"
+      ]
+    },
+    {
+      "id": "name-katsuragawa",
+      "category": "history",
+      "title": "桂川に由来する説",
+      "summary": "京都の桂川の流れを連想させるため、とする説も紹介されています。決定的な語源としては扱いません。",
+      "evidence_type": "theory",
+      "review_status": "draft",
+      "source_ids": [
+        "ndl-etymology"
+      ]
+    },
+    {
+      "id": "first-inventor",
+      "category": "history",
+      "title": "最初に考えた人は？",
+      "summary": "この初期資料の範囲では、桂むきの最初の考案者を特定できていません。歴史上の人物を想像で決めないことにします。",
+      "evidence_type": "unknown",
+      "review_status": "draft",
+      "source_ids": [
+        "ndl-etymology"
+      ]
+    },
+    {
+      "id": "sim-ribbon",
+      "category": "simulation",
+      "title": "リボンが伸びる仕組み",
+      "summary": "ゲームでは回転量と大根の半径から帯の長さを近似計算します。これは実際の桂むきを正確に測定する物理モデルではありません。",
+      "evidence_type": "game_model",
+      "review_status": "draft",
+      "source_ids": []
+    }
+  ]
+}
