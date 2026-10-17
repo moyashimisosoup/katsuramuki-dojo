@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "id": "tsuji-technique",
+      "title": "辻調理師専門学校 大根の桂むき",
+      "url": "https://www.tsuji.ac.jp/hp/gihou/japan/yasai/katura/katu.htm",
+      "type": "culinary_education",
+      "verification": "needs_recheck"
+    },
+    {
+      "id": "tsuji-training",
+      "title": "辻調理師専門学校 日本料理の切りもの、むきものができるようになります！",
+      "url": "https://www.tsuji.ac.jp/college/chorishi/blog/cat1278/11.html",
+      "type": "culinary_education",
+      "verification": "needs_recheck"
+    },
+    {
+      "id": "tsuji-practice",
+      "title": "辻調理師専門学校 わたし！桂むきに自信があります！",
+      "url": "https://www.tsuji.ac.jp/college/chorishi/blog/cat1278/23_1.html",
+      "type": "culinary_education",
+      "verification": "needs_recheck"
+    },
+    {
+      "id": "study-2023",
+      "title": "加賀谷みえ子・加藤舞子（2023）日本料理「桂むき」の剥き方技術に関する研究",
+      "url": "https://ndlsearch.ndl.go.jp/books/R000000004-I032690361",
+      "type": "research_index",
+      "verification": "needs_recheck"
+    },
+    {
+      "id": "ndl-etymology",
+      "title": "国立国会図書館レファレンス協同データベース 「桂むき」の語源を知りたい",
+      "url": "https://crd.ndl.go.jp/reference/entry/index.php?id=1000036861&page=ref_view",
+      "type": "reference_answer",
+      "verification": "needs_recheck"
+    },
+    {
+      "id": "kyoto-training",
+      "title": "京都調理師専門学校 調理師としてのレベル上げを目指すには？",
+      "url": "https://www.kyoto-chorishi.ac.jp/knowledge/c0016/",
+      "type": "culinary_education",
+      "verification": "needs_recheck"
+    }
+  ]
+}
