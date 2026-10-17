@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "notice": "ゲーム内の仮調整値です。実際の包丁動作や物理量の測定値ではありません。",
+  "units": "game_mm",
+  "starting_radii_game_mm": {
+    "daikon": 35
+  },
+  "modes": [
+    {
+      "id": "try",
+      "label": "おためし",
+      "rotation": "automatic",
+      "control": "single_pointer",
+      "session_seconds": 30
+    },
+    {
+      "id": "dojo",
+      "label": "道場",
+      "rotation": "manual",
+      "control": "two_hands_or_keyboard_mouse",
+      "session_seconds": 30
+    },
+    {
+      "id": "endless",
+      "label": "無限桂むき",
+      "rotation": "manual",
+      "control": "two_hands_or_keyboard_mouse",
+      "session_seconds": null,
+      "phase": 1
+    }
+  ],
+  "mechanics": {
+    "target_thickness_game_mm": 1,
+    "depth_min_game_mm": 0.3,
+    "depth_max_game_mm": 3,
+    "break_on_depth_jump_game_mm": 1.4,
+    "break_on_undershoot_game_mm": 0.2,
+    "max_radish_rotation_game_rad_per_tick": 0.24,
+    "rotation_to_length": "remainingRadius * absolute(deltaAngle)",
+    "random_breaks": false
+  },
+  "training_challenges": [
+    {
+      "id": "uniform-20cm",
+      "label": "まずは均一な20cm",
+      "target_length_game_mm": 200,
+      "goal": "continuous_uniform_ribbon",
+      "phase": 1
+    },
+    {
+      "id": "uniform-60cm",
+      "label": "同じ厚さで60cm",
+      "target_length_game_mm": 600,
+      "goal": "continuous_uniform_ribbon",
+      "phase": 1
+    },
+    {
+      "id": "thin-100cm",
+      "label": "薄く100cm",
+      "target_length_game_mm": 1000,
+      "goal": "thin_uniform_ribbon",
+      "phase": 1
+    }
+  ]
+}
