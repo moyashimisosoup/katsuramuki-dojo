@@ -20,6 +20,7 @@
 | --- | --- |
 | [docs/INITIAL_DESIGN.md](docs/INITIAL_DESIGN.md) | ゲーム体験、入力、評価、技法と文化の初期設計 |
 | [docs/ROADMAP.md](docs/ROADMAP.md) | 実装フェーズと受入条件 |
+| [docs/PHASE0_KATSURAMUKI_PHYSICS_PLAN_V1.md](docs/PHASE0_KATSURAMUKI_PHYSICS_PLAN_V1.md) | 桂むき専用物理モデル・操作・表示・検証の詳細計画 |
 | [docs/CONTENT_POLICY.md](docs/CONTENT_POLICY.md) | 出典・史実・仮説・ゲーム表現の線引き |
 | [data/encyclopedia.json](data/encyclopedia.json) | ゲーム用の図鑑カード初稿 |
 | [data/sources.json](data/sources.json) | 典拠・追加確認先の台帳 |
