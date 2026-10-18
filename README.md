@@ -5,7 +5,7 @@
 桂むきを中心に、和包丁・料理・技法の歴史を探究するWebシミュレーターの開発リポジトリです。
 
 **APP-ID：APP-022**  
-**開発段階（2026-10-17）：構想・初期設計 / データ土台整備。ゲーム本体未実装。GitHub Pages未公開。**
+**開発段階（2026-10-18）：R0局所切削コア＋静的Web操作画面を実装。幾何学的切削のみ。切削抵抗・柔軟体・破断は未実装。GitHub Pages未公開。**
 
 ## 目指す体験
 
@@ -23,6 +23,9 @@
 | [docs/PHASE0_KATSURAMUKI_PHYSICS_PLAN_V1.md](docs/PHASE0_KATSURAMUKI_PHYSICS_PLAN_V1.md) | 桂むき専用物理モデル・操作・表示・検証の詳細計画 |
 | [docs/REAL_PHYSICS_ENGINE_PLAN_V2.md](docs/REAL_PHYSICS_ENGINE_PLAN_V2.md) | 実物理ベースの設計 v2：局所接触、材料除去、抵抗、帯の柔軟物理、破断 |
 | [docs/PHYSICS_MEASUREMENT_VALIDATION_V1.md](docs/PHYSICS_MEASUREMENT_VALIDATION_V1.md) | 実測資料の信頼区分、校正プロトコル、妥当性検証ゲート |
+| [docs/R0_IMPLEMENTATION.md](docs/R0_IMPLEMENTATION.md) | R0の実装範囲、数理的限界、検証手順 |
+| [src/physics/surface.js](src/physics/surface.js) | 局所切削・帯/屑・体積積算エンジン |
+| [index.html](index.html) | スマートフォン幅対応の操作可能な静的デモ（サイト公開は未実施） |
 | [docs/CONTENT_POLICY.md](docs/CONTENT_POLICY.md) | 出典・史実・仮説・ゲーム表現の線引き |
 | [data/encyclopedia.json](data/encyclopedia.json) | ゲーム用の図鑑カード初稿 |
 | [data/sources.json](data/sources.json) | 典拠・追加確認先の台帳 |
@@ -41,4 +44,10 @@
 - アプリの名称・デザイン・図鑑内容は今後変更される可能性があります。
 - **ライセンスは未決定です。** 外部サイトの文章・写真・映像を転載しません。
 
-次の操作：Phase 0の入力・リボン描画の小さな実装と、iPhone Safariでの操作確認。
+## R0試作の確認方法
+
+Node.js 20以上で `npm test` を実行すると、局所切削・体積保存など12テストが実行されます。
+
+`index.html` は静的Webアプリです。ES Modulesを使うため、`file://` 直開きではなく静的HTTPサーバー上で閲覧します。例：`python3 -m http.server 8000` で起動し `http://localhost:8000` を開く方法があります。**これは公開URLではありません**。ブラウザ操作とデータ検証、iPhone Safari実機検証はそれぞれ区別します。
+
+次の操作：R0の実機受入と、R1（接触抵抗・失速）の定式化。GitHub Pages配信は別途承認が必要。
