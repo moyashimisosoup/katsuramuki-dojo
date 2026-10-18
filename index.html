@@ -6,15 +6,18 @@
   <meta name="theme-color" content="#f5f4ee">
   <title>かつらむき道場 | R0</title>
   <link rel="stylesheet" href="styles.css">
+  <script type="importmap">
+  {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js"}}
+  </script>
 </head>
 <body>
   <main class="app">
     <header class="topbar">
       <div><div class="eyebrow">APP-022 · PHYSICS STUDY</div><h1>かつらむき道場</h1></div>
-      <div class="edition">R0 <span>局所切削モデル</span></div>
+      <div class="edition">R0-3D <span>局所切削モデル</span></div>
     </header>
     <section class="workbench" aria-label="桂むきのシミュレーション">
-      <div class="canvas-head"><div><strong>大根と包丁</strong><span>刃が通過した部分だけを削ります</span></div><span id="status" class="status" aria-live="polite">準備完了</span></div>
+      <div class="canvas-head"><div><strong>大根と包丁</strong><span id="view-status">3D表示を準備中</span></div><div class="scene-actions"><button id="camera-switch" disabled type="button">刃先を拡大</button><span id="status" class="status" aria-live="polite">準備完了</span></div></div>
       <canvas id="scene" role="img" aria-label="大根の円柱、包丁、むいた大根の薄い帯の描画"></canvas>
       <div class="readings">
         <div><span>帯の長さ</span><strong id="length">0<span> mm</span></strong></div>
@@ -34,14 +37,14 @@
         <button id="toggle" class="primary" type="button">むき始める</button>
         <button id="reset" type="button">新しい大根</button>
       </div>
-      <p class="instructions">刃の送りを大きくすると、回転とともに刃先が内側へ進みます。傾きを変えると帯の上端と下端の厚さが変わります。切れた帯の揺れや抵抗はまだ再現していません。</p>
+      <p class="instructions">刃の送りを変えると、R0の切削結果に合わせて大根の立体形状と帯が変化します。手のモデル、切削抵抗、帯の揺れ・破断はまだ未実装です。帯の垂れ方は観察用の仮曲線です。</p>
     </section>
     <section class="material" aria-label="大根表面の切削状態">
       <div class="material-head"><div><h2>大根の表面</h2><p>円周を開いた図。縦方向は大根の幅です。</p></div><span>削れていない ← → 削れた</span></div>
       <canvas id="surface" role="img" aria-label="大根を切り開いた表面の円周方向と幅方向の除去量ヒートマップ"></canvas>
       <div class="legend"><span><i></i> 未切削</span><span><i></i> 切削済み</span><span id="mass-check">体積保存：一致</span></div>
     </section>
-    <footer>R0 · 幾何学的な材料除去の試作です。切削抵抗・植物組織の変形・破断は未実装で、実物の包丁技能を再現・保証するものではありません。</footer>
+    <footer>R0-3D · 可変形状と帯の3D描画を備えた幾何学的切削の試作。切削抵抗・植物組織の変形・破断は未実装で、包丁技能を再現・保証するものではありません。</footer>
   </main>
   <script type="module" src="src/main.js"></script>
 </body>
