@@ -1,6 +1,7 @@
 import {createDaikon,cutSweep,remainingVolume} from './physics/surface.js';
 import {drawScene,drawSurface} from './view/draw.js';
 const $=id=>document.getElementById(id);
+let sceneCanvas=$('scene'),view3D=null,cameraMode='main';
 let daikon=createDaikon(),state='ready',bladeRadius=34.5,elapsed=0,last=0,acc=0;
 const DT=1/60,DURATION=30;
 const initialVolume=Math.PI*daikon.config.radius**2*daikon.config.width;
@@ -16,6 +17,7 @@ function updateStatus(){
 function reset(){
  daikon=createDaikon();bladeRadius=34.5;elapsed=0;acc=0;state='ready';
  updateStatus();readout();drawSurface($('surface'),daikon);
+ if(view3D)view3D.update(daikon,bladeRadius,Number($('tilt').value));
 }
 function readout(){
  $('length').innerHTML=daikon.ribbonLength.toFixed(0)+'<span> mm</span>';
@@ -42,7 +44,8 @@ function update(){
  });
  bladeRadius=nextBlade;
  elapsed+=DT;
- if(Math.round(elapsed*60)%6===0){readout();drawSurface($('surface'),daikon);}
+ if(Math.round(elapsed*60)%6===0){readout();drawSurface($('surface'),daikon);
+  if(view3D)view3D.update(daikon,bladeRadius,Number($('tilt').value));}
 }
 function tick(t){
  if(last===0)last=t;
@@ -52,10 +55,34 @@ function tick(t){
    while(acc>=DT&&guard++<5&&state==='playing'){update();acc-=DT;}
    if(guard>=5)acc=0;
  }else acc=0;
- drawScene($('scene'),daikon,bladeRadius,t);
+ if(view3D)view3D.render(daikon);
+ else drawScene(sceneCanvas,daikon,bladeRadius,t);
  requestAnimationFrame(tick);
 }
 document.addEventListener('visibilitychange',()=>{
  last=0;if(document.hidden&&state==='playing'){state='paused';updateStatus();}
 });
-refreshControls();reset();requestAnimationFrame(tick);
+$('camera-switch').addEventListener('click',()=>{
+ if(!view3D)return;
+ cameraMode=cameraMode==='main'?'detail':'main';
+ view3D.setView(cameraMode);
+ $('camera-switch').textContent=cameraMode==='main'?'刃先を拡大':'全体を見る';
+});
+async function boot(){
+ try{
+  const {createThreeView}=await import('./view3d/scene.js');
+  view3D=createThreeView(sceneCanvas);
+  view3D.update(daikon,bladeRadius,Number($('tilt').value));
+  $('view-status').textContent='3D表示 · R0幾何モデル';
+  $('camera-switch').disabled=false;
+ }catch(error){
+  console.warn('Three.js unavailable; using Canvas 2D fallback',error);
+  const replacement=document.createElement('canvas');replacement.id='scene';
+  replacement.setAttribute('role','img');replacement.setAttribute('aria-label','大根と包丁の2D代替表示');
+  sceneCanvas.replaceWith(replacement);sceneCanvas=replacement;
+  $('view-status').textContent='2D代替表示（3Dが利用できません）';
+  $('camera-switch').disabled=true;
+ }
+ refreshControls();reset();requestAnimationFrame(tick);
+}
+boot();

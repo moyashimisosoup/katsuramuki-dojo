@@ -20,3 +20,8 @@ jobs:
         run: node --version
       - name: Run R0 cutting geometry tests
         run: npm test
+      - name: Check Three.js module syntax
+        run: |
+          node --check src/main.js
+          node --check src/view3d/geometry.js
+          node --check src/view3d/scene.js
