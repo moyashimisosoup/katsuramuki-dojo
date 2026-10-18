@@ -81,7 +81,7 @@ export function createThreeView(canvas){
    if(body)body.rotation.x=-(currentAngle-lastMeshedAngle);
    // The two views are visual inspection cameras, not calibrated knife angles.
    const wide=cameraMode==='main',portrait=canvas.clientWidth<600;
-   const scale=portrait?1.5:1;
+   const scale=portrait?1.12:1;
    camera.position.set(...(wide?[97*scale,80*scale,142*scale]:[47*scale,48*scale,82*scale]));
    camera.lookAt(wide?0:5,wide?-4:16,wide?12:24);
    renderer.render(scene,camera);
