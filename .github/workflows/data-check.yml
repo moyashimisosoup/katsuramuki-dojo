@@ -16,3 +16,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Check source data syntax and references
         run: python3 tools/validate_data.py
+      - name: Check Node version
+        run: node --version
+      - name: Run R0 cutting geometry tests
+        run: npm test
