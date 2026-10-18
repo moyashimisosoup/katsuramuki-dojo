@@ -31,10 +31,10 @@
 | 3D-04 | 全幅シートとしての帯メッシュ、表示数上限 | ✅ コード作成・数値テスト |
 | 3D-05 | 全体・刃先の2つのカメラ | ✅ コード作成・構文検査 |
 | 3D-06 | R0数値変化の同期とWebGL不可時の2D代替 | ✅ コード作成・構文検査 |
-| 3D-07 | Node 19テスト・GitHub Actions 成功・GitHub保存確認 | ☐ CI統合後に確定 |
+| 3D-07 | Node 19テスト・GitHub Actions 成功・GitHub保存確認 | ✅ [CI run #39170978650](https://github.com/moyashimisosoup/katsuramuki-dojo/actions/runs/39170978650)成功、[PR #5](https://github.com/moyashimisosoup/katsuramuki-dojo/pull/5) main統合・読戻し済み |
 | 3D-08 | PC実ブラウザでの3D描画・スマホ幅での操作受入 | ☐ 未確認 |
 
-PRのCI成功・mainへ統合後は **7/8 = 88%**（87.5%四捨五入）となる。**3D-08が未確認ならM06は未完了のまま**。実機試験とWebサイト公開は別。
+**2026-10-19現在、個別進捗は 7/8 = 88%**（87.5%を四捨五入）。**3D-08が未確認ならM06は未完了のまま**。実機試験とWebサイト公開は別。
 
 ## 技術選択とコードの所在
 
