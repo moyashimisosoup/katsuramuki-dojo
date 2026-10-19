@@ -25,6 +25,8 @@
 | [docs/PHYSICS_MEASUREMENT_VALIDATION_V1.md](docs/PHYSICS_MEASUREMENT_VALIDATION_V1.md) | 実測資料の信頼区分、校正プロトコル、妥当性検証ゲート |
 | [docs/R0_IMPLEMENTATION.md](docs/R0_IMPLEMENTATION.md) | R0の実装範囲、数理的限界、検証手順 |
 | [docs/3D_PROGRESS_CHECKPOINT_20261019.md](docs/3D_PROGRESS_CHECKPOINT_20261019.md) | 全体12項目・3D個別8項目の確認可能な進捗台帳 |
+| [docs/PHOTO_MATCHED_ANIMATION_PIPELINE_V1.md](docs/PHOTO_MATCHED_ANIMATION_PIPELINE_V1.md) | 写実的な見本画像を実際の桂むき動作へ変換するアセット・物理統合計画 |
+| [src/rig/knife-pose.js](src/rig/knife-pose.js) | 切れ刃・包丁面・柄の独立座標とGLB用アンカー（画面への接続は後続） |
 | [docs/PAGES_RELEASE_20261019.md](docs/PAGES_RELEASE_20261019.md) | GitHub Pagesの承認、最小公開配信、確認結果・公開進捗 |
 | [src/view3d/geometry.js](src/view3d/geometry.js) | R0から3D大根・刃先・帯の幾何形状への変換 |
 | [src/view3d/scene.js](src/view3d/scene.js) | Three.js描画と全体/接触拡大の2カメラ |
