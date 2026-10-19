@@ -59,3 +59,21 @@ jobs:
       - name: Deploy to Pages
         id: deployment
         uses: actions/deploy-pages@v4
+      - name: Check published static site
+        shell: bash
+        env:
+          PAGE_URL: ${{ steps.deployment.outputs.page_url }}
+        run: |
+          set -eu
+          test -n "$PAGE_URL"
+          SITE="${PAGE_URL%/}"
+          for i in $(seq 1 12); do
+            if curl -fsSL --connect-timeout 10 --max-time 20 "$SITE/index.html" -o /tmp/pages-index.html && grep -q 'src/main.js' /tmp/pages-index.html && curl -fsSL --connect-timeout 10 --max-time 20 "$SITE/src/view3d/scene.js" -o /tmp/pages-scene.js && grep -q 'createThreeView' /tmp/pages-scene.js; then
+              echo "Static site and 3D module are reachable: $SITE/"
+              exit 0
+            fi
+            echo "Site not yet ready: attempt $i/12"
+            sleep 5
+          done
+          echo "::error::Pages did not serve required app files"
+          exit 1
