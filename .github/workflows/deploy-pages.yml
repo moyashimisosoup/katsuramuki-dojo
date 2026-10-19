@@ -1,0 +1,61 @@
+name: Publish Katsuramuki Dojo to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  verify-and-package:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate encyclopedia data
+        run: python3 tools/validate_data.py
+      - name: Validate R0 and 3D geometry
+        run: npm test
+      - name: Verify JavaScript module syntax
+        run: |
+          node --check src/main.js
+          node --check src/view3d/geometry.js
+          node --check src/view3d/scene.js
+      - name: Create minimal, non-sensitive static artifact
+        run: |
+          mkdir -p _site/src/physics _site/src/view _site/src/view3d
+          cp index.html styles.css _site/
+          cp src/main.js _site/src/
+          cp src/physics/surface.js _site/src/physics/
+          cp src/view/draw.js _site/src/view/
+          cp src/view3d/geometry.js src/view3d/scene.js _site/src/view3d/
+          touch _site/.nojekyll
+          test -f _site/index.html
+          test -f _site/src/view3d/scene.js
+          test -f _site/src/physics/surface.js
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site/
+
+  deploy:
+    needs: verify-and-package
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
