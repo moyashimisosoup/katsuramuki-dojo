@@ -4,6 +4,13 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'index.html'
+      - 'styles.css'
+      - 'src/**'
+      - '.github/workflows/deploy-pages.yml'
+      - 'package.json'
+      - 'tests/**'
   workflow_dispatch:
 
 permissions:
