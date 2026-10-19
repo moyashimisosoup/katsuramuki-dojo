@@ -60,7 +60,7 @@
 
 - 新しい正本: [PHOTO_MATCHED_ANIMATION_PIPELINE_V1.md](PHOTO_MATCHED_ANIMATION_PIPELINE_V1.md)
 - 新規チェック7項目: 接触フレーム、実写姿勢確認、包丁GLB、両手リグ、帯の柔軟物理、PBR照明、実機受入。
-- 既存の公開アプリは変更せず、リグの接触座標計算を独立実装してNodeで検証する。CI成功後に**1/7 = 14%**とする。物理付き実3Dモデルとして描画承認済みの項目はまだゼロ。
+- リグの接触座標計算を独立実装し、[PR #9](https://github.com/moyashimisosoup/katsuramuki-dojo/pull/9)でmainへ統合。[CI #39219581599](https://github.com/moyashimisosoup/katsuramuki-dojo/actions/runs/39219581599)は既存19件＋新規8件の合計27件成功。**写実動作モデル移行：1/7 = 14%**（14.3%四捨五入）。ただしGLBとリアルタイムの描画品質はまだゼロ件の合格。
 - 全体M06は継続して未完成、全体6/12=50%を据え置く。ユーザーの品質指摘を自動テスト成功で無視しない。
 
 ## 次の1操作
