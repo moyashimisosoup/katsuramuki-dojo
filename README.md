@@ -5,7 +5,7 @@
 桂むきを中心に、和包丁・料理・技法の歴史を探究するWebシミュレーターの開発リポジトリです。
 
 **APP-ID：APP-022**  
-**開発段階（2026-10-19）：R0切削＋Three.jsの3Dモデル連動コードを実装。Node幾何テスト19件・CIの確認とWebGL実描画受入を区別。R1切削抵抗、R2帯の柔軟物理、R3破断は未実装。GitHub Pagesの公開承認済み・配信の成否はCI確認まで未確定。**
+**開発段階（2026-10-19）：R0切削＋Three.jsの3Dモデル連動コードを実装。Node幾何テスト19件・CIの確認とWebGL実描画受入を区別。R1切削抵抗、R2帯の柔軟物理、R3破断は未実装。GitHub Pagesは公開済み（2026-10-19 12:10 JST、CI内HTTPでHTMLと3D JSの到達を確認）。実画面のWebGL操作は未検証。**
 
 ## 目指す体験
 
@@ -29,7 +29,7 @@
 | [src/view3d/geometry.js](src/view3d/geometry.js) | R0から3D大根・刃先・帯の幾何形状への変換 |
 | [src/view3d/scene.js](src/view3d/scene.js) | Three.js描画と全体/接触拡大の2カメラ |
 | [src/physics/surface.js](src/physics/surface.js) | 局所切削・帯/屑・体積積算エンジン |
-| [index.html](index.html) | スマートフォン幅対応の操作可能な静的デモ（サイト公開は未実施） |
+| [index.html](index.html) | [GitHub Pages公開試作](https://moyashimisosoup.github.io/katsuramuki-dojo/)（WebGL実画面の操作検証は未完了） |
 | [docs/CONTENT_POLICY.md](docs/CONTENT_POLICY.md) | 出典・史実・仮説・ゲーム表現の線引き |
 | [data/encyclopedia.json](data/encyclopedia.json) | ゲーム用の図鑑カード初稿 |
 | [data/sources.json](data/sources.json) | 典拠・追加確認先の台帳 |
@@ -54,4 +54,4 @@ Node.js 20以上で `npm test` を実行すると、局所切削・体積保存1
 
 `index.html` は静的Webアプリです。ES Modulesを使うため、`file://` 直開きではなく静的HTTPサーバー上で閲覧します。例：`python3 -m http.server 8000` で起動し `http://localhost:8000` を開く方法があります。**これは公開URLではありません**。ブラウザ操作とデータ検証、iPhone Safari実機検証はそれぞれ区別します。
 
-次の操作：GitHub Pagesの自動配信が成功したかを確認し、公開URLのHTTP・WebGL描画とPC/スマートフォン表示を分けて検証する。GitHub Pagesの公開は2026-10-19に承認された。
+次の操作：公開済みURLをPCブラウザ/iPhone Safari/Androidで実際に操作し、3D表示・カメラ切替・操作性能を検証する。配信とHTTP確認は完了。
