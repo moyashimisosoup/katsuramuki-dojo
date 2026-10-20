@@ -47,9 +47,11 @@
 |---|---|---|
 | ST-01 | 公式字幕から上げ／戻しの技法差を確認 | ✅ [先行監査](KATSURAMUKI_VIDEO_MOTION_AUDIT_V1.md) |
 | ST-02 | 運動モジュールの純粋関数を保存・構文確認 | ✅ ソース作成済み |
-| ST-03 | 自動テストとGitHub Actions成功、main読戻し | PRのCI/統合後に確定 |
+| ST-03 | 自動テストとGitHub Actions成功、main読戻し | ✅ [PR #13](https://github.com/moyashimisosoup/katsuramuki-dojo/pull/13)統合、[CI #39403577268](https://github.com/moyashimisosoup/katsuramuki-dojo/actions/runs/39403577268) 41/41成功、main読戻し確認 |
 | ST-04 | 現行R0ゲーム画面への接続を実機検証 | ☐ **意図的に未適用** |
 | ST-05 | 同一実演の連続フレームで動き・距離・握り方を校正 | ☐ 映像未取得 |
+
+**現在の個別進捗：3/5=60%。**
 
 この5項目の率は**運動位相PoCの工程の比率**であり、写実品質ではない。新しい工程を足して全体計画の進捗を無条件に加点しない。
 
