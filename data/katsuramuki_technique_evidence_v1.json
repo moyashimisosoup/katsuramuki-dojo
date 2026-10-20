@@ -1,0 +1,341 @@
+{
+  "schema_version": 1,
+  "app_id": "APP-022",
+  "review_date_jst": "2026-10-20",
+  "purpose": "Reference evidence for one physically plausible katsuramuki technique, not universal instruction",
+  "evidence_boundary": "Text/page and PDF diagram reviewed. Videos have verified title/description only; continuous frames and angle values not yet measured.",
+  "text_sources": [
+    {
+      "id": "TXT-01",
+      "issuer": "辻調理師専門学校",
+      "title": "大根の桂むき 基本技法",
+      "url": "https://www.tsuji.ac.jp/hp/gihou/japan/yasai/katura/katu.htm",
+      "primary_evidence": "包丁の大きい上下動・右親指による厚さの把握",
+      "technique_family": "Tsuji-horizontal",
+      "trust": "instructor_direct",
+      "review": "text_checked"
+    },
+    {
+      "id": "TXT-02",
+      "issuer": "辻調理師専門学校",
+      "title": "桂むきに自信があります（実習指導）",
+      "url": "https://www.tsuji.ac.jp/college/chorishi/blog/cat1278/23_1.html",
+      "primary_evidence": "両親指の位置と大根をまな板と平行に構えること、帯評価",
+      "technique_family": "Tsuji-horizontal",
+      "trust": "instructor_direct",
+      "review": "text_checked"
+    },
+    {
+      "id": "TXT-03",
+      "issuer": "辻調理師専門学校",
+      "title": "今日も包丁技術を磨きます（実習）",
+      "url": "https://www.tsuji.ac.jp/college/chorishi/blog/cat1278/5.html",
+      "primary_evidence": "手の握りと指の位置、包丁の大きい上下動、切り始め指導",
+      "technique_family": "Tsuji-horizontal",
+      "trust": "instructor_direct",
+      "review": "text_checked"
+    },
+    {
+      "id": "TXT-04",
+      "issuer": "辻調理師専門学校",
+      "title": "日本料理の切りもの、むきもの",
+      "url": "https://www.tsuji.ac.jp/college/chorishi/blog/cat1278/11.html",
+      "primary_evidence": "帯の切れ込み・包丁のぐらつき・長く薄くまっすぐ",
+      "technique_family": "Tsuji-horizontal",
+      "trust": "instructor_direct",
+      "review": "text_checked"
+    },
+    {
+      "id": "TXT-05",
+      "issuer": "辻調理師専門学校",
+      "title": "日本料理だけを学ぶ新学科のはなし3",
+      "url": "https://www.tsuji.ac.jp/college/chorishi/blog/cat1279/post_333.html",
+      "primary_evidence": "円柱の形・長さと厚み・上下運動・力みの影響",
+      "technique_family": "Tsuji-horizontal",
+      "trust": "instructor_direct",
+      "review": "text_checked"
+    },
+    {
+      "id": "TXT-06",
+      "issuer": "辻調理師専門学校",
+      "title": "先生、放課後、練習できますか",
+      "url": "https://www.tsuji.ac.jp/college/chorishi/blog/cat1278/_6_2.html",
+      "primary_evidence": "左手の支持姿勢と平行性・2mの帯練習",
+      "technique_family": "Tsuji-horizontal",
+      "trust": "instructor_direct",
+      "review": "text_checked"
+    },
+    {
+      "id": "TXT-07",
+      "issuer": "京都調理師専門学校",
+      "title": "調理師としてのレベル上げを目指すには",
+      "url": "https://www.kyoto-chorishi.ac.jp/knowledge/c0016/",
+      "primary_evidence": "左手が野菜を回し右手が包丁、協調運動、1mm程度の指導目安",
+      "technique_family": "general",
+      "trust": "school",
+      "review": "text_checked"
+    },
+    {
+      "id": "TXT-08",
+      "issuer": "NHK出版テキスト紹介（島谷宗宏料理長）",
+      "title": "プロ直伝！桂むきが長く薄く美しくなるコツ",
+      "url": "https://bookstand.webdoku.jp/news/textview/2018/07/18/080036.html",
+      "primary_evidence": "野菜を立てて手で保持する方式、親指2点＋視覚1点、野菜を回し包丁は上下",
+      "technique_family": "Shimatani-upright",
+      "trust": "expert_quoted",
+      "review": "text_checked"
+    },
+    {
+      "id": "TXT-09",
+      "issuer": "ハウス食品",
+      "title": "基本のキ：桂むき",
+      "url": "https://housefoods.jp/recipe/kihon/cut/cut_22.html",
+      "primary_evidence": "5cm程度から円柱を作り、親指で回しながら巻紙状に連続させる",
+      "technique_family": "general",
+      "trust": "corporate_instruction",
+      "review": "text_checked"
+    },
+    {
+      "id": "TXT-10",
+      "issuer": "銀座渡利",
+      "title": "桂むきのやり方のコツ",
+      "url": "https://ginzawatari.jp/%E6%A1%82%E3%82%80%E3%81%8D%E3%81%AE%E3%82%84%E3%82%8A%E6%96%B9%E3%81%AE%E3%82%B3%E3%83%84%E3%81%AF%EF%BC%9F%E5%A4%A7%E6%A0%B9%E3%82%92%E5%88%87%E3%82%89%E3%81%9A%E3%81%AB%E7%B6%BA%E9%BA%97%E3%81%AB/",
+      "primary_evidence": "包丁を前に押し進めない、左親指で回転・右親指で深さを制御",
+      "technique_family": "chef-demonstration",
+      "trust": "professional_instruction",
+      "review": "text_checked"
+    },
+    {
+      "id": "TXT-11",
+      "issuer": "和食プロネット（会席料理大学）",
+      "title": "桂むき動画テキスト・図解PDF 6頁",
+      "url": "https://www.washoku-pronet.jp/_files/ugd/b0924a_459eb06aa4e74e0a933d23bbab47e934.pdf",
+      "primary_evidence": "まな板と包丁の平行、上中下の厚さ制御、押し上げ時の切削・戻し時非切削、厚さより継続",
+      "technique_family": "washoku-pronet",
+      "trust": "professional_instruction",
+      "review": "text_and_pdf_diagram_checked"
+    },
+    {
+      "id": "TXT-12",
+      "issuer": "長谷工 ブランシエラクラブ",
+      "title": "プロに教わる包丁の正しい持ち方",
+      "url": "https://www.haseko.co.jp/branchera/idea/recipe/recipe_0001.html",
+      "primary_evidence": "野菜側を回し包丁側親指で厚み制御する補助解説",
+      "technique_family": "general",
+      "trust": "expert_supervised",
+      "review": "text_checked"
+    },
+    {
+      "id": "TXT-13",
+      "issuer": "クックパッド 投稿レシピ",
+      "title": "切り方～桂むき～",
+      "url": "https://cookpad.com/jp/recipes/18020688",
+      "primary_evidence": "足・胴体の向きと包丁上下動、ただし利用者投稿で他の一次指導と区別",
+      "technique_family": "community",
+      "trust": "user_submitted_low",
+      "review": "text_checked"
+    }
+  ],
+  "videos": [
+    {
+      "id": "VID-01",
+      "issuer": "京都調理師専門学校",
+      "title": "桂むきの技術を超高画質で学ぶ",
+      "url": "https://www.youtube.com/watch?v=fSa0cI-9EDk",
+      "evidence": "公式紹介：刃の角度・動かし方・姿勢・失敗原因",
+      "verified_level": "title_description_only",
+      "timestamp_verified": false
+    },
+    {
+      "id": "VID-02",
+      "issuer": "京都調理師専門学校",
+      "title": "桂むき 日本料理の基礎技術",
+      "url": "https://www.youtube.com/watch?v=anP7e7YJJk0",
+      "evidence": "学校公式の基礎解説実演",
+      "verified_level": "title_description_only",
+      "timestamp_verified": false
+    },
+    {
+      "id": "VID-03",
+      "issuer": "ビストロエガリテ（専門学校教員実技）",
+      "title": "専門学校の先生が教える大根の桂むき",
+      "url": "https://www.youtube.com/watch?v=QzAM6AZFbIg",
+      "evidence": "動画説明欄：持ち方、姿勢、薄く長く真っ直ぐにむくポイント",
+      "verified_level": "title_description_only",
+      "timestamp_verified": false
+    },
+    {
+      "id": "VID-04",
+      "issuer": "会席料理大学 和食プロネット",
+      "title": "大根の桂むき レッスン動画無料公開版",
+      "url": "https://www.youtube.com/watch?v=DM2I-KVV3is",
+      "evidence": "説明欄に包丁1:02、大根1:37、短い幅2:59、円柱3:38、厚くて良い4:21の章立て",
+      "verified_level": "description_chapters_only",
+      "timestamp_verified": false
+    }
+  ],
+  "claims": [
+    {
+      "id": "OBS-01",
+      "component": "work_surface",
+      "statement": "標準の手持ち桂むきは、大根をまな板に押し付けて固定し切削する手順ではない。まな板は画面に写り得る。",
+      "support": [
+        "TXT-02",
+        "TXT-08",
+        "TXT-11"
+      ],
+      "state": "supported_with_scope",
+      "model": "must_hand_hold; board_may_be_visible"
+    },
+    {
+      "id": "OBS-02",
+      "component": "daikon_axis",
+      "statement": "辻調は大根をまな板に対して平行に持つ方式を指導する。",
+      "support": [
+        "TXT-02",
+        "TXT-06"
+      ],
+      "state": "supported_specific_style",
+      "model": "Tsuji-horizontal"
+    },
+    {
+      "id": "OBS-03",
+      "component": "daikon_axis",
+      "statement": "NHKで紹介された島谷料理長の技法では、野菜を立てて手で持つ方式が示される。",
+      "support": [
+        "TXT-08"
+      ],
+      "state": "supported_specific_style",
+      "model": "Shimatani-upright"
+    },
+    {
+      "id": "OBS-04",
+      "component": "left_hand",
+      "statement": "右利きモデルでは左手が大根を支え親指で少しずつ回し、右手が包丁を操作する。",
+      "support": [
+        "TXT-07",
+        "TXT-10",
+        "TXT-11"
+      ],
+      "state": "strong",
+      "model": "left_radish_right_knife"
+    },
+    {
+      "id": "OBS-05",
+      "component": "thumb_contact",
+      "statement": "包丁側の親指と野菜側の親指の位置関係が刃の安定と厚み調節に関わる。",
+      "support": [
+        "TXT-01",
+        "TXT-02",
+        "TXT-08",
+        "TXT-11"
+      ],
+      "state": "strong",
+      "model": "separate_finger_anchors"
+    },
+    {
+      "id": "OBS-06",
+      "component": "cutting_stroke",
+      "statement": "複数の指導で包丁の上下滑走と野菜の回転を連動させる。和食プロネットでは押し上げ時に切り下げ時は切らないとする。",
+      "support": [
+        "TXT-01",
+        "TXT-03",
+        "TXT-10",
+        "TXT-11"
+      ],
+      "state": "supported_specific_stroke",
+      "model": "rotation_and_stroke_separate"
+    },
+    {
+      "id": "OBS-07",
+      "component": "cutting_contact",
+      "statement": "刃は円柱の側面から薄片を連続的に剥離させる。写真投影だけから刃面角度の数値は決められない。",
+      "support": [
+        "TXT-01",
+        "TXT-08",
+        "TXT-09",
+        "TXT-10"
+      ],
+      "state": "strong_for_side_surface_angle_unmeasured",
+      "model": "edge_contact_only_no_numeric_face_angle"
+    },
+    {
+      "id": "OBS-08",
+      "component": "ribbon",
+      "statement": "薄片は帯幅を持つ連続するシートで、薄い・長い・まっすぐが評価指標。",
+      "support": [
+        "TXT-02",
+        "TXT-04",
+        "TXT-05",
+        "TXT-07",
+        "TXT-09"
+      ],
+      "state": "strong",
+      "model": "sheet_not_noodles"
+    },
+    {
+      "id": "OBS-09",
+      "component": "training_sequence",
+      "statement": "初学者は短い大根・整った円柱から、まず継続した均一な剥離、その後薄さへ進む指導がある。",
+      "support": [
+        "TXT-09",
+        "TXT-11"
+      ],
+      "state": "strong_for_that_training_style",
+      "model": "practice_continuity_then_thin"
+    },
+    {
+      "id": "OBS-10",
+      "component": "blade_motion_error",
+      "statement": "包丁がぐらついたり刃先が大根に当たると帯の切れ込み・中断につながると指導される。",
+      "support": [
+        "TXT-04",
+        "TXT-05"
+      ],
+      "state": "strong",
+      "model": "knife_wobble_affects_ribbon_failure"
+    },
+    {
+      "id": "OBS-11",
+      "component": "geometry",
+      "statement": "円柱断面の整形、帯の幅方向上下の厚み差を管理することが重要。",
+      "support": [
+        "TXT-05",
+        "TXT-08",
+        "TXT-11"
+      ],
+      "state": "strong",
+      "model": "uniform_cylinder_axial_thickness"
+    },
+    {
+      "id": "OBS-12",
+      "component": "knife_angle",
+      "statement": "刃先接触位置、刃面角、円柱軸に対する刃線、包丁の往復方向、見かけの撮影角は別々のパラメータ。実測角度は未確定。",
+      "support": [
+        "TXT-01",
+        "TXT-08",
+        "TXT-10",
+        "TXT-11"
+      ],
+      "state": "inference_from_sources",
+      "model": "never_hardcode_measured_degrees_without_calibration"
+    }
+  ],
+  "pose_acceptance": {
+    "hard_reject": [
+      "radish_fixed_on_board_for_slicing_in_standard_handheld_mode",
+      "blade_cutting_across_daikon_end_face_instead_of_cylindrical_side",
+      "incompatible_left_right_hand_rig_for_chosen_right_handed_profile",
+      "ribbon_not_emerging_from_calculated_blade_surface_contact",
+      "render_shows_invented_measured_degrees"
+    ],
+    "unknown_not_reject": [
+      "vertical_daikon_when_matching_shimatani_style",
+      "cutting_board_visible_but_not_used_as_support",
+      "camera_view_hides_blade_face_angle"
+    ],
+    "photo_reference_catalog": "docs/REAL_KATSURAMUKI_PHOTO_REFERENCES_30.md",
+    "video_frame_confirmation_count": 0,
+    "pose_model_approved": false
+  }
+}
