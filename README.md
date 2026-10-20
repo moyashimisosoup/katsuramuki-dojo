@@ -37,6 +37,8 @@
 | [src/view3d/geometry.js](src/view3d/geometry.js) | R0から3D大根・刃先・帯の幾何形状への変換 |
 | [src/view3d/scene.js](src/view3d/scene.js) | Three.js描画と全体/接触拡大の2カメラ |
 | [src/physics/surface.js](src/physics/surface.js) | 局所切削・帯/屑・体積積算エンジン |
+| [src/physics/stroke-cycle.js](src/physics/stroke-cycle.js) | 未校正の包丁上げ/戻し位相モデル。公開ゲームへは未接続 |
+| [docs/STROKE_CYCLE_R05_20261020.md](docs/STROKE_CYCLE_R05_20261020.md) | 技法根拠、R0連携方法、工程検収の5項目 |
 | [index.html](index.html) | [GitHub Pages公開試作](https://moyashimisosoup.github.io/katsuramuki-dojo/)（WebGL実画面の操作検証は未完了） |
 | [docs/CONTENT_POLICY.md](docs/CONTENT_POLICY.md) | 出典・史実・仮説・ゲーム表現の線引き |
 | [data/encyclopedia.json](data/encyclopedia.json) | ゲーム用の図鑑カード初稿 |
