@@ -27,6 +27,8 @@
 | [docs/3D_PROGRESS_CHECKPOINT_20261019.md](docs/3D_PROGRESS_CHECKPOINT_20261019.md) | 全体12項目・3D個別8項目の確認可能な進捗台帳 |
 | [docs/PHOTO_MATCHED_ANIMATION_PIPELINE_V1.md](docs/PHOTO_MATCHED_ANIMATION_PIPELINE_V1.md) | 写実的な見本画像を実際の桂むき動作へ変換するアセット・物理統合計画 |
 | [docs/REAL_KATSURAMUKI_PHOTO_REFERENCES_30.md](docs/REAL_KATSURAMUKI_PHOTO_REFERENCES_30.md) | 調理学校・職人による実写30点の参照リンク、出典、角度照合の候補 |
+| [docs/KATSURAMUKI_TECHNIQUE_REFERENCE_V1.md](docs/KATSURAMUKI_TECHNIQUE_REFERENCE_V1.md) | 手持ち桂むきの文章13件・実演動画4件、保持方式の相違・技法の検証条件 |
+| [data/katsuramuki_technique_evidence_v1.json](data/katsuramuki_technique_evidence_v1.json) | 主張12件と出典IDの対応、フレーム未確認状況を機械可読で保持 |
 | [data/real_katsuramuki_photo_references_30.json](data/real_katsuramuki_photo_references_30.json) | 30点の機械可読な参照データ（画像自体の転載は禁止複製なし） |
 | [src/rig/knife-pose.js](src/rig/knife-pose.js) | 切れ刃・包丁面・柄の独立座標とGLB用アンカー（画面への接続は後続） |
 | [docs/PAGES_RELEASE_20261019.md](docs/PAGES_RELEASE_20261019.md) | GitHub Pagesの承認、最小公開配信、確認結果・公開進捗 |
