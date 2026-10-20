@@ -63,5 +63,13 @@
 - リグの接触座標計算を独立実装し、[PR #9](https://github.com/moyashimisosoup/katsuramuki-dojo/pull/9)でmainへ統合。[CI #39219581599](https://github.com/moyashimisosoup/katsuramuki-dojo/actions/runs/39219581599)は既存19件＋新規8件の合計27件成功。**写実動作モデル移行：1/7 = 14%**（14.3%四捨五入）。ただしGLBとリアルタイムの描画品質はまだゼロ件の合格。
 - 全体M06は継続して未完成、全体6/12=50%を据え置く。ユーザーの品質指摘を自動テスト成功で無視しない。
 
+## 2026-10-20｜実技資料再確認のCHECKPOINT
+
+- 桂むきの姿勢資料を[文章13件・動画4本](KATSURAMUKI_TECHNIQUE_REFERENCE_V1.md)で整理。主張12件を[根拠JSON](../data/katsuramuki_technique_evidence_v1.json)でID対応。追加2件の資料整合テストをGitHub CIに組み込んだ。
+- ユーザーの指摘に対応して**「大根の水平以外は全部不正解」という旧ルールを撤回**。辻調の横向き保持と、NHK料理長の立て持ちは資料ごとに指導方式を区別する。
+- PR [#11](https://github.com/moyashimisosoup/katsuramuki-dojo/pull/11)をmainへ統合（commit `fabf078`）、[CI成功](https://github.com/moyashimisosoup/katsuramuki-dojo/actions/runs/39395362678)、重要5ファイルをmainから読戻し。
+- **文章13/13照合、動画4/4は説明欄確認、連続映像のフレーム検証0/4、写真の刃面角正式検証0/30。** 画像の評価基準を改善しただけなので、新写実動作モデル1/7=14%、全体6/12=50%は据え置き。
+- 次：**方式A（辻調に準じた手持ちの横向きモデル）の同一実演を1本選び、包丁が側面に当たる5〜10cmの切削動作を映像フレームで検証**する。前後フレームから観測できない刃面角や親指位置は「不明」と記録する。
+
 ## 次の1操作
 WebGLブラウザで、カメラA/B、切削前後、傾き最大、幅390px相当の描画と入力を検査。構図の破綻があれば修正し、M06の3D-08を完了させる。その後にR1へ進む。
