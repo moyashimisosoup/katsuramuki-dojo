@@ -3,7 +3,7 @@
   "app_id": "APP-022",
   "review_date_jst": "2026-10-20",
   "purpose": "Reference evidence for one physically plausible katsuramuki technique, not universal instruction",
-  "evidence_boundary": "Text/page and PDF diagram reviewed. Videos have verified title/description only; continuous frames and angle values not yet measured.",
+  "evidence_boundary": "13 text sources reviewed; 4 video titles/descriptions reviewed; VID-01's auto transcript text also read on 2026-10-20. No video frames inspected and no angle values measured.",
   "text_sources": [
     {
       "id": "TXT-01",
@@ -143,7 +143,7 @@
       "title": "桂むきの技術を超高画質で学ぶ",
       "url": "https://www.youtube.com/watch?v=fSa0cI-9EDk",
       "evidence": "公式紹介：刃の角度・動かし方・姿勢・失敗原因",
-      "verified_level": "title_description_only",
+      "verified_level": "auto_transcript_text_read_untimed_no_frames",
       "timestamp_verified": false
     },
     {
@@ -337,5 +337,6 @@
     "photo_reference_catalog": "docs/REAL_KATSURAMUKI_PHOTO_REFERENCES_30.md",
     "video_frame_confirmation_count": 0,
     "pose_model_approved": false
-  }
+  },
+  "motion_audit_file": "data/katsuramuki_motion_audit_20261020.json"
 }

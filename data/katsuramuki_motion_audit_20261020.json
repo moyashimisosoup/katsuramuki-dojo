@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "app_id": "APP-022",
+  "date_jst": "2026-10-20",
+  "primary_video": {
+    "id": "VID-01",
+    "url": "https://www.youtube.com/watch?v=fSa0cI-9EDk",
+    "uploader": "京都調理師専門学校",
+    "published": "2025-03-11",
+    "duration_seconds": 408,
+    "inspected": "youtube_page_metadata_and_auto_transcript",
+    "real_video_frames_examined": false,
+    "caption_has_exact_timestamps": false,
+    "asr_quality": "raw_may_misrecognize_words"
+  },
+  "secondary_video": {
+    "source_page": "https://www.tsuji.ac.jp/college/chorishi/blog/cat1278/_6_2.html",
+    "video_source": "YouTube embedded by Tsuji Culinary Institute",
+    "duration_seconds": 72,
+    "inspected": "embed and metadata only",
+    "real_video_frames_examined": false,
+    "caption_found": false
+  },
+  "observations": [
+    {
+      "id": "MOT-01",
+      "phase": "knife_grip",
+      "summary": "利き手で包丁の刃元を中指・親指・人差し指と柄の指で保持する",
+      "support": [
+        "VID-01"
+      ],
+      "provenance": "automatic_video_transcript",
+      "image_verified": false,
+      "timecode": null,
+      "certainty": "instruction_text_only",
+      "model_attribute": "right_hand_grip"
+    },
+    {
+      "id": "MOT-02",
+      "phase": "radish_grip",
+      "summary": "反対側の手で大根を握り込まず、指の腹で支え手のひらとの間に回転用の空間を作る",
+      "support": [
+        "VID-01"
+      ],
+      "provenance": "automatic_video_transcript",
+      "image_verified": false,
+      "timecode": null,
+      "certainty": "instruction_text_only",
+      "model_attribute": "left_hand_grip_not_clamped"
+    },
+    {
+      "id": "MOT-03",
+      "phase": "outer_skin",
+      "summary": "硬い皮は薄片の桂むきとは別工程でやや厚く除去する",
+      "support": [
+        "VID-01"
+      ],
+      "provenance": "automatic_video_transcript",
+      "image_verified": false,
+      "timecode": null,
+      "certainty": "instruction_text_only",
+      "model_attribute": "skin_removal_phase"
+    },
+    {
+      "id": "MOT-04",
+      "phase": "blade_contact",
+      "summary": "大根の中心軸に刃をほぼ平行に構え、左親指の近くで接触線を保つ",
+      "support": [
+        "VID-01"
+      ],
+      "provenance": "automatic_video_transcript",
+      "image_verified": false,
+      "timecode": null,
+      "certainty": "partly_asr_unclear",
+      "model_attribute": "knife_edge_relative_to_axis"
+    },
+    {
+      "id": "MOT-05",
+      "phase": "power_stroke",
+      "summary": "包丁を上へ動かす局面に大根の回転を対応させる",
+      "support": [
+        "VID-01"
+      ],
+      "provenance": "automatic_video_transcript",
+      "image_verified": false,
+      "timecode": null,
+      "certainty": "instruction_text_only",
+      "model_attribute": "upstroke_rotation_enabled"
+    },
+    {
+      "id": "MOT-06",
+      "phase": "return_stroke",
+      "summary": "包丁を下へ戻す局面には大根を回転させず、刃の姿勢を保つ",
+      "support": [
+        "VID-01"
+      ],
+      "provenance": "automatic_video_transcript",
+      "image_verified": false,
+      "timecode": null,
+      "certainty": "instruction_text_only",
+      "model_attribute": "downstroke_rotation_disabled"
+    },
+    {
+      "id": "MOT-07",
+      "phase": "edge_skew_failure",
+      "summary": "刃元と切先の進み方の差・大根軸との傾きで円柱にテーパーが生じる失敗例",
+      "support": [
+        "VID-01"
+      ],
+      "provenance": "automatic_video_transcript",
+      "image_verified": false,
+      "timecode": null,
+      "certainty": "partly_asr_unclear",
+      "model_attribute": "edge_skew_failure"
+    },
+    {
+      "id": "MOT-08",
+      "phase": "overgrip_failure",
+      "summary": "大根を強く握り込み回せないと厚みの不均一・楕円形状に繋がる失敗例",
+      "support": [
+        "VID-01"
+      ],
+      "provenance": "automatic_video_transcript",
+      "image_verified": false,
+      "timecode": null,
+      "certainty": "instruction_text_only",
+      "model_attribute": "grip_constriction_failure"
+    }
+  ],
+  "selected_motion_profile": "kyoto_2025_instructor_demo_as_candidate_only",
+  "rig_pose_acceptance": "pending_actual_video_frame_observation",
+  "static_camera_angle_approval": false,
+  "downstroke_note": "Do not infer contact-force separation or no contact from absence of daikon rotation; these require visual verification.",
+  "regression_in_current_game": "src/main.js rotates daikon and feeds knife every simulation step, including time that would be a return stroke. Existing animation does not represent rise-only cutting. Must NOT be marked calibrated to video.",
+  "frame_audit_tasks": [
+    "Seek and examine same demonstrator at onset of peel, middle of upstroke, apex, return and restart",
+    "Identify right/left thumb image locations without guessing when occluded",
+    "Track blade edge roots and tips against daikon axis over consecutive frames",
+    "Measure peel width and first 5-10cm emerging section only with calibrated video geometry",
+    "Compare world model camera A/B from same 3D pose, not separately AI-generated views"
+  ],
+  "official_conclusions": {
+    "text_only_motion_gates_verified": 2,
+    "actual_frame_sequences_verified": 0,
+    "force_calibration_verified": false,
+    "physical_blade_face_angle_verified": false
+  }
+}
