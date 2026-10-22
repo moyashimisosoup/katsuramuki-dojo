@@ -21,3 +21,5 @@
 - 姿勢採用は `docs/KATSURAMUKI_POSE_EVIDENCE_V1_20261022.md` / `src/rig/pose-evidence.js` の **GRIP / CONTACT / CROSS_VIEW 3回ゲート**を先行する。実写候補6件は未観察・未承認で、画像上の2線角度から物理刃面角は逆算できない。出典PDF（2023年の椙山女学園大学論文）は検索断片のみ確認、図の現物は未確認。実写/フレームに架空の座標を付けない。公開Pagesへの追加・変更は別の検収作業とする。
 
 - 2026-10-22、辻調JPEGのKPHOTO-002/007/013と別競技画像KPHOTO-026の**計4原画を目視**。`docs/KATSURAMUKI_PHOTO_OBSERVATIONS_20261022.md` を参照。KPHOTO-013親指2点のみ粗い2D座標を記録、その他刃元・刃先・接触線・帯出口は不明。**正式な3D姿勢認定0/30**。講師と学生の異なる手、および異なる実演者の複数写真を一つの3D動作として混同しない。
+
+- 2026-10-22独立の`experiments/pose-lab.html`と`src/rig/pose-lab-model.js`を追加。**一つの仮3D座標から三カメラで表示**し、手を掌/親指の仮支点として可視化。手指の形状、刃面角、帯曲線はいずれも未校正。検証仕様は`docs/POSE_LAB_SINGLE_SCENE_V01_20261022.md`。本番`index.html`や`src/main.js`へ導入済みと扱わない。
