@@ -11,6 +11,9 @@ on:
       - '.github/workflows/deploy-pages.yml'
       - 'package.json'
       - 'tests/**'
+      - 'experiments/pose-lab.html'
+      - 'experiments/pose-lab.js'
+      - 'experiments/pose-lab-start.js'
   workflow_dispatch:
 
 permissions:
@@ -35,18 +38,29 @@ jobs:
           node --check src/main.js
           node --check src/view3d/geometry.js
           node --check src/view3d/scene.js
+          node --check src/rig/knife-pose.js
+          node --check src/rig/pose-lab-model.js
+          node --check experiments/pose-lab.js
+          node --check experiments/pose-lab-start.js
       - name: Create minimal, non-sensitive static artifact
         run: |
-          mkdir -p _site/src/physics _site/src/view _site/src/view3d
+          mkdir -p _site/src/physics _site/src/view _site/src/view3d _site/src/rig _site/experiments
           cp index.html styles.css _site/
           cp src/main.js _site/src/
           cp src/physics/surface.js _site/src/physics/
           cp src/view/draw.js _site/src/view/
           cp src/view3d/geometry.js src/view3d/scene.js _site/src/view3d/
+          cp src/rig/knife-pose.js src/rig/pose-lab-model.js _site/src/rig/
+          cp experiments/pose-lab.html experiments/pose-lab.js experiments/pose-lab-start.js _site/experiments/
           touch _site/.nojekyll
           test -f _site/index.html
           test -f _site/src/view3d/scene.js
           test -f _site/src/physics/surface.js
+          test -f _site/experiments/pose-lab.html
+          test -f _site/experiments/pose-lab.js
+          test -f _site/experiments/pose-lab-start.js
+          test -f _site/src/rig/knife-pose.js
+          test -f _site/src/rig/pose-lab-model.js
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
@@ -75,8 +89,8 @@ jobs:
           test -n "$PAGE_URL"
           SITE="${PAGE_URL%/}"
           for i in $(seq 1 12); do
-            if curl -fsSL --connect-timeout 10 --max-time 20 "$SITE/index.html" -o /tmp/pages-index.html && grep -q 'src/main.js' /tmp/pages-index.html && curl -fsSL --connect-timeout 10 --max-time 20 "$SITE/src/view3d/scene.js" -o /tmp/pages-scene.js && grep -q 'createThreeView' /tmp/pages-scene.js; then
-              echo "Static site and 3D module are reachable: $SITE/"
+            if curl -fsSL --connect-timeout 10 --max-time 20 "$SITE/index.html" -o /tmp/pages-index.html && grep -q 'src/main.js' /tmp/pages-index.html && curl -fsSL --connect-timeout 10 --max-time 20 "$SITE/src/view3d/scene.js" -o /tmp/pages-scene.js && grep -q 'createThreeView' /tmp/pages-scene.js && curl -fsSL --connect-timeout 10 --max-time 20 "$SITE/experiments/pose-lab.html" -o /tmp/pages-pose-lab.html && grep -q 'pose-lab-start.js' /tmp/pages-pose-lab.html && curl -fsSL --connect-timeout 10 --max-time 20 "$SITE/experiments/pose-lab-start.js" -o /tmp/pages-pose-lab-start.js && grep -q 'pose-lab.js' /tmp/pages-pose-lab-start.js && curl -fsSL --connect-timeout 10 --max-time 20 "$SITE/experiments/pose-lab.js" -o /tmp/pages-pose-lab.js && grep -q 'createPoseLabModel' /tmp/pages-pose-lab.js && curl -fsSL --connect-timeout 10 --max-time 20 "$SITE/src/rig/knife-pose.js" -o /tmp/pages-knife-pose.js && grep -q 'buildKnifeContactPose' /tmp/pages-knife-pose.js && curl -fsSL --connect-timeout 10 --max-time 20 "$SITE/src/rig/pose-lab-model.js" -o /tmp/pages-pose-lab-model.js && grep -q 'createPoseLabModel' /tmp/pages-pose-lab-model.js; then
+              echo "Static site, 3D game and pose lab are reachable: $SITE/ and $SITE/experiments/pose-lab.html"
               exit 0
             fi
             echo "Site not yet ready: attempt $i/12"
