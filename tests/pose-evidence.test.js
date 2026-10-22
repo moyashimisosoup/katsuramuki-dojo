@@ -25,17 +25,29 @@ function witnessed() {
  for(const key of ['grip','contact','cross_view'])p.reviews[key]={status:'pass',evidenceNote:'Independent manual example evidence recorded'};
  return p;
 }
-test('six real-source candidates remain uninspected and not accepted',()=>{
+test('three originals were visually inspected; none of six candidates are pose-approved',()=>{
  assert.equal(saved.candidates.length,6);
  assert.equal(saved.approvalStatus,'none');
  const ids=new Set(saved.candidates.map(x=>x.id));assert.equal(ids.size,6);
+ const inspected=saved.candidates.filter(x=>x.actualVisualInspected).map(x=>x.id).sort();
+ assert.deepEqual(inspected,['KPHOTO-002','KPHOTO-007','KPHOTO-013']);
  for(const x of saved.candidates){
   const r=reviewPoseEvidence(x);
   assert.equal(r.readyForHuman3DReview,false);
   assert.equal(r.automaticallyApprovedFor3D,false);
-  assert.ok(r.blockers.includes('original_image_or_frames_not_inspected'));
+  assert.ok(r.blockers.includes('independent_camera_views_not_verified'));
+  if(!x.actualVisualInspected)assert.ok(r.blockers.includes('original_image_or_frames_not_inspected'));
   assert.equal(r.projectedEdgeAxisAngleDeg,null);
  }
+});
+test('only observed thumb landmarks are recorded; hidden knife and daikon anchors stay null',()=>{
+ const item=saved.candidates.find(x=>x.id==='KPHOTO-013');
+ assert.equal(item.inspection.assessment,'partial_observation_only');
+ assert.equal(item.landmarkReviewPrecision,'coarse_visual_estimate_unverified_second_reviewer');
+ assert.deepEqual(item.inspection.visibleLandmarks,['leftThumb','rightThumb']);
+ for(const key of ['daikonAxisStart','daikonAxisEnd','bladeEdgeHeel','bladeEdgeTip',
+       'bladeSideContact','ribbonOrigin'])assert.equal(item.landmarks[key],null);
+ assert.equal(saved.visualObservations.formalPoseApprovals,0);
 });
 test('upright holding is a valid distinct technique profile, not automatic failure',()=>{
  const x=blank();x.techniqueProfile='shimatani_upright';
