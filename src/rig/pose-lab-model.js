@@ -24,9 +24,11 @@ export function createPoseLabModel(config={}){
    contactAngleRad:p.contactAngleDeg*RAD,bladeFaceAngleRad:p.bladeFaceAngleDeg*RAD,
    bladeFaceHeight:28,handleOffset:34
  });
- const leftPalm=[-43,-16,-12];
- // This support marker is NOT an anatomical thumb-tip reconstruction.
- const leftThumb=[-19,24,-24];
+ // Attach the *placeholder* thumb to the rotating contact basis so that
+ // moving the experimental cut around the cylinder does not leave it floating.
+ const leftThumb=add([-19,0,0],
+   add(scale(knife.radialNormal,34),scale(knife.cylinderTangent,6)));
+ const leftPalm=add(leftThumb,[-22,-20,5]);
  const rightPalm=add(knife.handleAnchor,[15,-10,6]);
  const rightThumb=add(knife.handleAnchor,[-19,-2,-2]);
  const edge0=knife.edgeStart,edge1=knife.edgeEnd;
