@@ -23,9 +23,11 @@
       "focus": "大根の握り・指先と包丁",
       "source_page": "https://www.tsuji.ac.jp/college/chorishi/blog/cat1278/5.html",
       "image_url": "https://www.tsuji.ac.jp/college/chorishi/blog/files/20210603chouri15.jpg",
-      "visual_review_status": "source_page_identified",
-      "angle_suitability": "not_yet_rated",
-      "rights": "link_only_no_image_copied"
+      "visual_review_status": "original_image_visually_inspected_partial",
+      "angle_suitability": "unmeasured_occlusions",
+      "rights": "link_only_no_image_copied",
+      "pose_validation": "not_yet_approved",
+      "inspection_note": "Original JPEG viewed at 600x450 on 2026-10-22; specific occlusions and separate demonstrator issues in data/katsuramuki_pose_review_candidates_v1.json"
     },
     {
       "id": "KPHOTO-003",
@@ -73,9 +75,11 @@
       "focus": "講師が最初の切り込み角度を指導（優先）",
       "source_page": "https://www.tsuji.ac.jp/college/chorishi/blog/cat1278/5.html",
       "image_url": "https://www.tsuji.ac.jp/college/chorishi/blog/files/20210603chouri21.jpg",
-      "visual_review_status": "source_page_identified",
-      "angle_suitability": "not_yet_rated",
-      "rights": "link_only_no_image_copied"
+      "visual_review_status": "original_image_visually_inspected_partial",
+      "angle_suitability": "unmeasured_occlusions",
+      "rights": "link_only_no_image_copied",
+      "pose_validation": "not_yet_approved",
+      "inspection_note": "Original JPEG viewed at 600x450 on 2026-10-22; specific occlusions and separate demonstrator issues in data/katsuramuki_pose_review_candidates_v1.json"
     },
     {
       "id": "KPHOTO-008",
@@ -133,9 +137,11 @@
       "focus": "両手親指の位置・大根の握り方（優先）",
       "source_page": "https://www.tsuji.ac.jp/college/chorishi/blog/cat1278/23_1.html",
       "image_url": "https://www.tsuji.ac.jp/college/chorishi/blog/files/20211224nihon6.jpg",
-      "visual_review_status": "source_page_identified",
-      "angle_suitability": "not_yet_rated",
-      "rights": "link_only_no_image_copied"
+      "visual_review_status": "original_image_visually_inspected_partial",
+      "angle_suitability": "unmeasured_occlusions",
+      "rights": "link_only_no_image_copied",
+      "pose_validation": "not_yet_approved",
+      "inspection_note": "Original JPEG viewed at 600x450 on 2026-10-22; specific occlusions and separate demonstrator issues in data/katsuramuki_pose_review_candidates_v1.json"
     },
     {
       "id": "KPHOTO-014",
@@ -263,9 +269,11 @@
       "focus": "大根断面が見える正面寄りの職人写真",
       "source_page": "https://camp-fire.jp/projects/770575/view",
       "image_url": "https://static-cache.camp-fire.jp/uploads/editor_uploaded_image/image/4259340/a1bd237bf2618e7d6cff5fa75372d0dc.png?fit=max",
-      "visual_review_status": "search_previewed",
-      "angle_suitability": "not_yet_rated",
-      "rights": "link_only_no_image_copied"
+      "visual_review_status": "original_image_visually_inspected_partial",
+      "angle_suitability": "2d_view_only_unmeasured",
+      "rights": "link_only_no_image_copied",
+      "pose_validation": "not_yet_approved",
+      "inspection_note": "Original PNG visually inspected on 2026-10-22. Practitioner holds radish in hand; thumb and broad peel sheet are identifiable, but knife cutting-edge contact line and calibrated 3D face angle remain unknown. Separate practitioner from Tsuji photos; comparator only."
     },
     {
       "id": "KPHOTO-027",
@@ -307,5 +315,6 @@
       "angle_suitability": "not_yet_rated",
       "rights": "link_only_no_image_copied"
     }
-  ]
+  ],
+  "photo_image_individually_inspected": 4
 }
