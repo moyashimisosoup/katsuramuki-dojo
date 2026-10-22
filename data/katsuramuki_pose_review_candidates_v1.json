@@ -27,7 +27,7 @@
       "mediaType": "photo",
       "sourceUrl": "https://www.tsuji.ac.jp/college/chorishi/blog/files/20210603chouri15.jpg",
       "reviewFocus": "大根の握り・左右の親指",
-      "actualVisualInspected": false,
+      "actualVisualInspected": true,
       "reviewedFrames": [],
       "crossViewCalibrationVerified": false,
       "landmarks": {
@@ -54,16 +54,33 @@
       "reviews": {
         "grip": {
           "status": "unknown",
-          "evidenceNote": ""
+          "evidenceNote": "Original image inspected, but occlusions and single-view evidence prevent reliable grip certification."
         },
         "contact": {
           "status": "unknown",
-          "evidenceNote": ""
+          "evidenceNote": "Cutting-edge line and sheet separation point not unequivocally visible in this source."
         },
         "cross_view": {
           "status": "unknown",
-          "evidenceNote": ""
+          "evidenceNote": "This individual static image does not provide a calibrated second camera of the same pose."
         }
+      },
+      "inspection": {
+        "dateJst": "2026-10-22",
+        "method": "original_jpeg_opened_as_image_web_view",
+        "imagePixelSize": [
+          600,
+          450
+        ],
+        "assessment": "partial_observation_only",
+        "poseCalibrated": false,
+        "angleCalibrated": false,
+        "notes": [
+          "Foreground trainee holds a daikon with both hands near a board while a broad sheet extends leftward.",
+          "Grip position is visible in outline but specific thumb pad contact and cutting edge are partly occluded.",
+          "Board is visible; do not infer whether radish weight is supported by the board from this 2D image."
+        ],
+        "visibleLandmarks": []
       }
     },
     {
@@ -72,7 +89,7 @@
       "mediaType": "photo",
       "sourceUrl": "https://www.tsuji.ac.jp/college/chorishi/blog/files/20210603chouri21.jpg",
       "reviewFocus": "最初の切り込み角度と接点",
-      "actualVisualInspected": false,
+      "actualVisualInspected": true,
       "reviewedFrames": [],
       "crossViewCalibrationVerified": false,
       "landmarks": {
@@ -86,7 +103,7 @@
         "ribbonOrigin": null
       },
       "claims": {
-        "handHeld": "unknown",
+        "handHeld": "pass",
         "leftHandDaikon": "unknown",
         "rightHandKnife": "unknown",
         "thumbControl": "unknown",
@@ -99,16 +116,33 @@
       "reviews": {
         "grip": {
           "status": "unknown",
-          "evidenceNote": ""
+          "evidenceNote": "Original image inspected, but occlusions and single-view evidence prevent reliable grip certification."
         },
         "contact": {
           "status": "unknown",
-          "evidenceNote": ""
+          "evidenceNote": "Cutting-edge line and sheet separation point not unequivocally visible in this source."
         },
         "cross_view": {
           "status": "unknown",
-          "evidenceNote": ""
+          "evidenceNote": "This individual static image does not provide a calibrated second camera of the same pose."
         }
+      },
+      "inspection": {
+        "dateJst": "2026-10-22",
+        "method": "original_jpeg_opened_as_image_web_view",
+        "imagePixelSize": [
+          600,
+          450
+        ],
+        "assessment": "partial_observation_only",
+        "poseCalibrated": false,
+        "angleCalibrated": false,
+        "notes": [
+          "Instructor at image left demonstrates with fingers; trainee at image center-right holds daikon and knife.",
+          "Instructor gestures and trainee's hands belong to different people. They must NOT be combined into one skeletal rig.",
+          "Daikon end face and metal blade are visible, but the moving edge contact and thumb pressure are not established from one still."
+        ],
+        "visibleLandmarks": []
       }
     },
     {
@@ -117,7 +151,7 @@
       "mediaType": "photo",
       "sourceUrl": "https://www.tsuji.ac.jp/college/chorishi/blog/files/20211224nihon6.jpg",
       "reviewFocus": "両手親指と大根の保持",
-      "actualVisualInspected": false,
+      "actualVisualInspected": true,
       "reviewedFrames": [],
       "crossViewCalibrationVerified": false,
       "landmarks": {
@@ -125,15 +159,21 @@
         "daikonAxisEnd": null,
         "bladeEdgeHeel": null,
         "bladeEdgeTip": null,
-        "leftThumb": null,
-        "rightThumb": null,
+        "leftThumb": [
+          0.452,
+          0.617
+        ],
+        "rightThumb": [
+          0.301,
+          0.642
+        ],
         "bladeSideContact": null,
         "ribbonOrigin": null
       },
       "claims": {
-        "handHeld": "unknown",
-        "leftHandDaikon": "unknown",
-        "rightHandKnife": "unknown",
+        "handHeld": "pass",
+        "leftHandDaikon": "pass",
+        "rightHandKnife": "pass",
         "thumbControl": "unknown",
         "sidewallEdgeContact": "unknown",
         "ribbonContactContinuity": "unknown",
@@ -144,17 +184,38 @@
       "reviews": {
         "grip": {
           "status": "unknown",
-          "evidenceNote": ""
+          "evidenceNote": "Original image inspected, but occlusions and single-view evidence prevent reliable grip certification."
         },
         "contact": {
           "status": "unknown",
-          "evidenceNote": ""
+          "evidenceNote": "Cutting-edge line and sheet separation point not unequivocally visible in this source."
         },
         "cross_view": {
           "status": "unknown",
-          "evidenceNote": ""
+          "evidenceNote": "This individual static image does not provide a calibrated second camera of the same pose."
         }
-      }
+      },
+      "inspection": {
+        "dateJst": "2026-10-22",
+        "method": "original_jpeg_opened_as_image_web_view",
+        "imagePixelSize": [
+          600,
+          450
+        ],
+        "assessment": "partial_observation_only",
+        "poseCalibrated": false,
+        "angleCalibrated": false,
+        "notes": [
+          "Foreground trainee grips black knife handle at image left and holds daikon near the blade with opposite hand.",
+          "Thin sheet hangs in front of the knife. The daikon cylinder axis and exact cutting edge are largely occluded.",
+          "Two thumb-region locations marked with COARSE APPROXIMATE normalized image coordinates for observation only; no 3D or angle claim."
+        ],
+        "visibleLandmarks": [
+          "leftThumb",
+          "rightThumb"
+        ]
+      },
+      "landmarkReviewPrecision": "coarse_visual_estimate_unverified_second_reviewer"
     },
     {
       "id": "KPHOTO-018",
@@ -292,5 +353,13 @@
       }
     }
   ],
-  "approvalStatus": "none"
+  "approvalStatus": "none",
+  "visualObservations": {
+    "observedSources": 3,
+    "uninspectedSources": 3,
+    "landmarkPointCount": 2,
+    "formalPoseApprovals": 0,
+    "description": "Image-source original JPEG visual inspection, not original video frames. Rough positions for KPHOTO-013 only; no other coordinates interpolated.",
+    "allInspectionChecksProvisional": true
+  }
 }
