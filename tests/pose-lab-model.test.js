@@ -91,3 +91,33 @@ test('deploy workflow packages all separate pose lab files and checks their publ
   assert.ok(workflow.includes('$SITE/'+item),item+' missing from public delivery checks');
  }
 });
+
+test('right-handed role labels follow fixed daikon and knife grip responsibilities',()=>{
+ for(const angle of [-85,-60,-5]){
+  const m=createPoseLabModel({contactAngleDeg:angle});
+  assert.equal(m.leftHand.side,'left');
+  assert.equal(m.leftHand.role,'hold_and_rotate_daikon');
+  assert.equal(m.rightHand.side,'right');
+  assert.equal(m.rightHand.role,'control_knife');
+  assert.equal(m.leftHand.provenance,'not_calibrated_placeholder');
+  assert.equal(m.rightHand.provenance,'not_calibrated_placeholder');
+  // Logical hand association is intentionally fixed across camera views.
+  assert.ok(m.leftHand.palm[0]<m.daikon.axisStart[0]);
+  assert.ok(m.rightHand.palm[0]>m.knife.handleAnchor[0]);
+ }
+});
+test('three-view pose-lab visibly labels hands by physical role not screen side',()=>{
+ const html=readFileSync(new URL('../experiments/pose-lab.html',import.meta.url),'utf8');
+ const js=readFileSync(new URL('../experiments/pose-lab.js',import.meta.url),'utf8');
+ assert.match(html,/左手<\/b> 大根を支え/);
+ assert.match(html,/右手<\/b> 包丁を持つ/);
+ assert.match(html,/画面の左端・右端を示すものではありません/);
+ assert.match(html,/id="hand-role-pins"/);
+ assert.match(js,/左手・大根/);
+ assert.match(js,/右手・包丁/);
+ assert.match(js,/new THREE\.Vector3\(\.\.\.hand\.palm\)\.project\(camera\)/);
+ assert.match(js,/placeHandRoleLabels\(i,camera\)/);
+ assert.match(js,/axis-overlap/);
+ assert.match(js,/roleLabelContainer\.style\.display/);
+ assert.match(html,/軸方向では左右の手が奥行きに重なる/);
+});

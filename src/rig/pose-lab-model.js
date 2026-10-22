@@ -51,8 +51,10 @@ export function createPoseLabModel(config={}){
    daikon:{radius,width,axisStart:[-width/2,0,0],axisEnd:[width/2,0,0]},
    knife,ribbon:{points:ribbonPoints,rows:ribbonRows,columns:ribbonColumns,
      startsAtEdge:true,lengthParameterMm:p.ribbonLengthMm},
-   leftHand:{palm:leftPalm,thumb:leftThumb,provenance:'not_calibrated_placeholder'},
-   rightHand:{palm:rightPalm,thumb:rightThumb,provenance:'not_calibrated_placeholder'},
+   // Role is fixed for the right-handed instructor profile; this does NOT
+   // certify hand anatomy or literal left/right placement in camera pixels.
+   leftHand:{role:'hold_and_rotate_daikon',side:'left',palm:leftPalm,thumb:leftThumb,provenance:'not_calibrated_placeholder'},
+   rightHand:{role:'control_knife',side:'right',palm:rightPalm,thumb:rightThumb,provenance:'not_calibrated_placeholder'},
    parameterStatus:'ALL 3D contact, finger and material quantities provisional',
    controls:p,orthonormalityError:orthonormalityError(knife)
  };
