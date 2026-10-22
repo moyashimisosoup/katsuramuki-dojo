@@ -68,3 +68,14 @@ test('standalone page references same rig, three panels, and not production main
  assert.match(js,/renderer\.render\(scene,camera\)/);
  assert.equal((js.match(/new THREE\.Scene\(/g)||[]).length,1);
 });
+
+test('placeholder thumb follows trial contact angle, rather than floating at one world position',()=>{
+ const a=createPoseLabModel({contactAngleDeg:-85});
+ const b=createPoseLabModel({contactAngleDeg:-5});
+ assert.notDeepEqual(a.leftHand.thumb,b.leftHand.thumb);
+ assert.notDeepEqual(a.leftHand.palm,b.leftHand.palm);
+ for(const pose of [a,b]){
+  assert.ok(Math.hypot(pose.leftHand.thumb[1],pose.leftHand.thumb[2])>=33);
+  assert.ok(Math.hypot(pose.leftHand.thumb[1],pose.leftHand.thumb[2])<=36);
+ }
+});
