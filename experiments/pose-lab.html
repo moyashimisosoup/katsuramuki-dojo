@@ -18,6 +18,22 @@ p{line-height:1.6}.intro{font-size:.86rem;color:#3e4e4a}
 .view-labels{position:absolute;inset:0;display:grid;grid-template-columns:repeat(3,1fr);pointer-events:none}
 .view-label{font-weight:700;font-size:.78rem;letter-spacing:.03em;color:#334c46;padding:12px 14px;border-right:1px solid #fff8}
 .view-label:last-child{border-right:0}
+.hand-legend{display:flex;gap:9px;flex-wrap:wrap;margin:12px 0 7px}
+.hand-legend span{display:inline-flex;align-items:center;gap:7px;padding:7px 11px;border:1px solid #c9d4ce;background:white;border-radius:9px;font-size:.78rem}
+.hand-legend .dot{width:11px;height:11px;border-radius:50%;display:inline-block;flex:none}
+.hand-legend .left .dot{background:#c19c81;border:1px solid #866b54}
+.hand-legend .right .dot{background:#8ca8bb;border:1px solid #53758d}
+.hand-hint{font-size:.75rem;color:#566960;margin:6px 0 12px}
+.role-pins{position:absolute;inset:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));pointer-events:none}
+.role-panel{position:relative;min-width:0;overflow:hidden}
+.role-pin{position:absolute;display:inline-flex;align-items:center;gap:4px;font-weight:700;font-size:.71rem;padding:5px 8px;border:1px solid #bacbc4;border-radius:9px;background:#fffef3ee;color:#21352d;box-shadow:0 1px 5px #142d2c33;white-space:nowrap;transform:translate(-50%,-100%);z-index:2;max-width:calc(100% - 8px)}
+.role-pin.left{border-left:4px solid #b08667}
+.role-pin.right{border-left:4px solid #739cb7}
+.role-pin .pin-dot{width:7px;height:7px;border-radius:50%;background:currentColor;opacity:.7;flex:none}
+.role-panel.axis-overlap .role-pin.left{left:24%!important;top:72%!important}
+.role-panel.axis-overlap .role-pin.right{left:76%!important;top:72%!important}
+.role-panel.axis-overlap::after{content:"※軸方向では左右の手が奥行きに重なる";position:absolute;bottom:9%;left:6%;right:6%;font-size:.64rem;text-align:center;background:#fff9;padding:4px 3px;border-radius:5px}
+
 .status{position:absolute;left:12px;right:12px;bottom:12px;background:#ffffffd9;padding:9px 12px;border-radius:8px;font-size:.72rem;color:#41574e}
 .controls{margin-top:16px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
 .control{background:white;border:1px solid #d3dbd5;border-radius:12px;padding:14px}
@@ -31,16 +47,22 @@ button{border:1px solid #a8bcb0;background:white;color:#30483c;border-radius:9px
 .note strong{display:block;margin-bottom:6px}.note ul{padding-left:1.4em;line-height:1.65;margin:7px 0}
 .links{font-size:.78rem;margin:12px 0}.links a{color:#286a70;margin-right:14px}
 kbd{background:#f0f4f1;padding:2px 5px;border-radius:4px;font-family:monospace}
-@media(max-width:720px){.wrap{padding:12px 12px 30px}.viewer{min-height:800px}#pose-canvas{height:930px}.view-labels{grid-template-columns:1fr;grid-template-rows:repeat(3,1fr)}.view-label{border-right:0;border-bottom:1px solid #fff8;padding:8px 12px}.view-label:last-child{border:0}.controls,.notes{grid-template-columns:1fr}.flag{font-size:.7rem}.status{font-size:.68rem}}
+@media(max-width:720px){.wrap{padding:12px 12px 30px}.viewer{min-height:800px}#pose-canvas{height:930px}.view-labels{grid-template-columns:1fr;grid-template-rows:repeat(3,1fr)}.view-label{border-right:0;border-bottom:1px solid #fff8;padding:8px 12px}.view-label:last-child{border:0}.role-pins{grid-template-columns:1fr;grid-template-rows:repeat(3,minmax(0,1fr))}.role-pin{font-size:.69rem;padding:5px 7px}.controls,.notes{grid-template-columns:1fr}.flag{font-size:.7rem}.status{font-size:.68rem}}
 </style>
 </head>
 <body>
 <main class="wrap">
 <header><div><div class="sub">APP-022 / POSE STUDY / PROTOTYPE 01</div><h1>かつらむき・手元姿勢ラボ</h1></div><span class="flag">未校正・3D姿勢未承認</span></header>
 <p class="intro">同じ<strong>一つの3Dシーン</strong>を、斜め正面・側面・大根の軸方向から表示します。<strong>手は指の位置を示す仮の支点</strong>で、実際の指の形を復元したものではありません。まな板による大根の支持は行っていません。</p>
+<div class="hand-legend" aria-label="右利きモデルの左右の手の役割">
+<span class="left"><i class="dot" aria-hidden="true"></i><b>左手</b> 大根を支え、回す（茶色）</span>
+<span class="right"><i class="dot" aria-hidden="true"></i><b>右手</b> 包丁を持つ（青色）</span>
+</div>
+<p class="hand-hint">「左手・右手」は実演者から見た区別です。画面の左端・右端を示すものではありません。球と棒は仮の支点です。</p>
 <section class="viewer" aria-label="同じ桂むき3Dモデルの3視点">
 <canvas id="pose-canvas" role="img" aria-label="同じ大根、包丁、左手と右手の仮支点、薄片を3方向から表示"></canvas>
 <div class="view-labels"><div class="view-label">1 · 斜め正面</div><div class="view-label">2 · 側面</div><div class="view-label">3 · 大根の軸方向</div></div>
+<div class="role-pins" id="hand-role-pins" aria-hidden="true"></div>
 <div class="status" id="scene-status" role="status">3Dレンダラーを準備中。表示値はすべて未校正の仮パラメータです。</div>
 </section>
 <section class="controls" aria-label="検証用の仮パラメータ">
