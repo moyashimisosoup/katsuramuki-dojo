@@ -1,0 +1,296 @@
+{
+  "schemaVersion": 1,
+  "appId": "APP-022",
+  "dateJst": "2026-10-22",
+  "purpose": "Manual landmark and multi-pass reviewer templates. 2D images MUST NOT auto-approve physical 3D poses.",
+  "sourcePhotoCatalog": "data/real_katsuramuki_photo_references_30.json",
+  "newResearch": [
+    {
+      "reference": "加賀谷みえ子・加藤舞子 (2023) 日本料理「桂むき」の剥き方技術に関する研究",
+      "doi": "10.20557/00003490",
+      "bibliographicURL": "https://ndlsearch.ndl.go.jp/books/R000000004-I032690361",
+      "pdfURL": "https://lib.sugiyama-u.repo.nii.ac.jp/record/3540/files/%E8%87%AA05%E5%8A%A0%E8%B3%80%E8%B0%B7%E4%BB%96.pdf",
+      "status": "indexed_excerpt_reviewed_full_pdf_figure_not_yet_inspected",
+      "evidence": "左親指の横向き・右親指の縦向きによるT字状の定位置、および熟練者Tの上下平均約0.78mm。特定研究の測定例で一般標準ではない"
+    },
+    {
+      "reference": "和食プロネット 動画テキスト 桂むき（6ページ）",
+      "pdfURL": "https://www.washoku-pronet.jp/_files/ugd/b0924a_459eb06aa4e74e0a933d23bbab47e934.pdf",
+      "status": "page_3_visual_confirmed",
+      "evidence": "目視・左親指・右親指による大根上下厚み確認。上げて切り下げでは切らない。大根の保持形態は技法による差を許容"
+    }
+  ],
+  "candidates": [
+    {
+      "id": "KPHOTO-002",
+      "techniqueProfile": "tsuji_horizontal",
+      "mediaType": "photo",
+      "sourceUrl": "https://www.tsuji.ac.jp/college/chorishi/blog/files/20210603chouri15.jpg",
+      "reviewFocus": "大根の握り・左右の親指",
+      "actualVisualInspected": false,
+      "reviewedFrames": [],
+      "crossViewCalibrationVerified": false,
+      "landmarks": {
+        "daikonAxisStart": null,
+        "daikonAxisEnd": null,
+        "bladeEdgeHeel": null,
+        "bladeEdgeTip": null,
+        "leftThumb": null,
+        "rightThumb": null,
+        "bladeSideContact": null,
+        "ribbonOrigin": null
+      },
+      "claims": {
+        "handHeld": "unknown",
+        "leftHandDaikon": "unknown",
+        "rightHandKnife": "unknown",
+        "thumbControl": "unknown",
+        "sidewallEdgeContact": "unknown",
+        "ribbonContactContinuity": "unknown",
+        "boardSupportsDaikon": "unknown",
+        "endFaceCut": "unknown",
+        "ribbonFloatingFromBladeFace": "unknown"
+      },
+      "reviews": {
+        "grip": {
+          "status": "unknown",
+          "evidenceNote": ""
+        },
+        "contact": {
+          "status": "unknown",
+          "evidenceNote": ""
+        },
+        "cross_view": {
+          "status": "unknown",
+          "evidenceNote": ""
+        }
+      }
+    },
+    {
+      "id": "KPHOTO-007",
+      "techniqueProfile": "tsuji_horizontal",
+      "mediaType": "photo",
+      "sourceUrl": "https://www.tsuji.ac.jp/college/chorishi/blog/files/20210603chouri21.jpg",
+      "reviewFocus": "最初の切り込み角度と接点",
+      "actualVisualInspected": false,
+      "reviewedFrames": [],
+      "crossViewCalibrationVerified": false,
+      "landmarks": {
+        "daikonAxisStart": null,
+        "daikonAxisEnd": null,
+        "bladeEdgeHeel": null,
+        "bladeEdgeTip": null,
+        "leftThumb": null,
+        "rightThumb": null,
+        "bladeSideContact": null,
+        "ribbonOrigin": null
+      },
+      "claims": {
+        "handHeld": "unknown",
+        "leftHandDaikon": "unknown",
+        "rightHandKnife": "unknown",
+        "thumbControl": "unknown",
+        "sidewallEdgeContact": "unknown",
+        "ribbonContactContinuity": "unknown",
+        "boardSupportsDaikon": "unknown",
+        "endFaceCut": "unknown",
+        "ribbonFloatingFromBladeFace": "unknown"
+      },
+      "reviews": {
+        "grip": {
+          "status": "unknown",
+          "evidenceNote": ""
+        },
+        "contact": {
+          "status": "unknown",
+          "evidenceNote": ""
+        },
+        "cross_view": {
+          "status": "unknown",
+          "evidenceNote": ""
+        }
+      }
+    },
+    {
+      "id": "KPHOTO-013",
+      "techniqueProfile": "tsuji_horizontal",
+      "mediaType": "photo",
+      "sourceUrl": "https://www.tsuji.ac.jp/college/chorishi/blog/files/20211224nihon6.jpg",
+      "reviewFocus": "両手親指と大根の保持",
+      "actualVisualInspected": false,
+      "reviewedFrames": [],
+      "crossViewCalibrationVerified": false,
+      "landmarks": {
+        "daikonAxisStart": null,
+        "daikonAxisEnd": null,
+        "bladeEdgeHeel": null,
+        "bladeEdgeTip": null,
+        "leftThumb": null,
+        "rightThumb": null,
+        "bladeSideContact": null,
+        "ribbonOrigin": null
+      },
+      "claims": {
+        "handHeld": "unknown",
+        "leftHandDaikon": "unknown",
+        "rightHandKnife": "unknown",
+        "thumbControl": "unknown",
+        "sidewallEdgeContact": "unknown",
+        "ribbonContactContinuity": "unknown",
+        "boardSupportsDaikon": "unknown",
+        "endFaceCut": "unknown",
+        "ribbonFloatingFromBladeFace": "unknown"
+      },
+      "reviews": {
+        "grip": {
+          "status": "unknown",
+          "evidenceNote": ""
+        },
+        "contact": {
+          "status": "unknown",
+          "evidenceNote": ""
+        },
+        "cross_view": {
+          "status": "unknown",
+          "evidenceNote": ""
+        }
+      }
+    },
+    {
+      "id": "KPHOTO-018",
+      "techniqueProfile": "tsuji_horizontal",
+      "mediaType": "photo",
+      "sourceUrl": "https://www.tsuji.ac.jp/hp/gihou/japan/yasai/katura/img/04.gif",
+      "reviewFocus": "連続して薄く剥く刃先",
+      "actualVisualInspected": false,
+      "reviewedFrames": [],
+      "crossViewCalibrationVerified": false,
+      "landmarks": {
+        "daikonAxisStart": null,
+        "daikonAxisEnd": null,
+        "bladeEdgeHeel": null,
+        "bladeEdgeTip": null,
+        "leftThumb": null,
+        "rightThumb": null,
+        "bladeSideContact": null,
+        "ribbonOrigin": null
+      },
+      "claims": {
+        "handHeld": "unknown",
+        "leftHandDaikon": "unknown",
+        "rightHandKnife": "unknown",
+        "thumbControl": "unknown",
+        "sidewallEdgeContact": "unknown",
+        "ribbonContactContinuity": "unknown",
+        "boardSupportsDaikon": "unknown",
+        "endFaceCut": "unknown",
+        "ribbonFloatingFromBladeFace": "unknown"
+      },
+      "reviews": {
+        "grip": {
+          "status": "unknown",
+          "evidenceNote": ""
+        },
+        "contact": {
+          "status": "unknown",
+          "evidenceNote": ""
+        },
+        "cross_view": {
+          "status": "unknown",
+          "evidenceNote": ""
+        }
+      }
+    },
+    {
+      "id": "KPHOTO-019",
+      "techniqueProfile": "tsuji_horizontal",
+      "mediaType": "photo",
+      "sourceUrl": "https://www.tsuji.ac.jp/hp/gihou/japan/yasai/katura/img/05.gif",
+      "reviewFocus": "上下ストロークと右親指",
+      "actualVisualInspected": false,
+      "reviewedFrames": [],
+      "crossViewCalibrationVerified": false,
+      "landmarks": {
+        "daikonAxisStart": null,
+        "daikonAxisEnd": null,
+        "bladeEdgeHeel": null,
+        "bladeEdgeTip": null,
+        "leftThumb": null,
+        "rightThumb": null,
+        "bladeSideContact": null,
+        "ribbonOrigin": null
+      },
+      "claims": {
+        "handHeld": "unknown",
+        "leftHandDaikon": "unknown",
+        "rightHandKnife": "unknown",
+        "thumbControl": "unknown",
+        "sidewallEdgeContact": "unknown",
+        "ribbonContactContinuity": "unknown",
+        "boardSupportsDaikon": "unknown",
+        "endFaceCut": "unknown",
+        "ribbonFloatingFromBladeFace": "unknown"
+      },
+      "reviews": {
+        "grip": {
+          "status": "unknown",
+          "evidenceNote": ""
+        },
+        "contact": {
+          "status": "unknown",
+          "evidenceNote": ""
+        },
+        "cross_view": {
+          "status": "unknown",
+          "evidenceNote": ""
+        }
+      }
+    },
+    {
+      "id": "VID-01",
+      "techniqueProfile": "kyoto_2025_demo",
+      "mediaType": "video",
+      "sourceUrl": "https://www.youtube.com/watch?v=fSa0cI-9EDk",
+      "reviewFocus": "上げ戻しと両手の連続実演",
+      "actualVisualInspected": false,
+      "reviewedFrames": [],
+      "crossViewCalibrationVerified": false,
+      "landmarks": {
+        "daikonAxisStart": null,
+        "daikonAxisEnd": null,
+        "bladeEdgeHeel": null,
+        "bladeEdgeTip": null,
+        "leftThumb": null,
+        "rightThumb": null,
+        "bladeSideContact": null,
+        "ribbonOrigin": null
+      },
+      "claims": {
+        "handHeld": "unknown",
+        "leftHandDaikon": "unknown",
+        "rightHandKnife": "unknown",
+        "thumbControl": "unknown",
+        "sidewallEdgeContact": "unknown",
+        "ribbonContactContinuity": "unknown",
+        "boardSupportsDaikon": "unknown",
+        "endFaceCut": "unknown",
+        "ribbonFloatingFromBladeFace": "unknown"
+      },
+      "reviews": {
+        "grip": {
+          "status": "unknown",
+          "evidenceNote": ""
+        },
+        "contact": {
+          "status": "unknown",
+          "evidenceNote": ""
+        },
+        "cross_view": {
+          "status": "unknown",
+          "evidenceNote": ""
+        }
+      }
+    }
+  ],
+  "approvalStatus": "none"
+}

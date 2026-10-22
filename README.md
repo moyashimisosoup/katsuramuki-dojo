@@ -33,6 +33,9 @@
 | [data/katsuramuki_technique_evidence_v1.json](data/katsuramuki_technique_evidence_v1.json) | 主張12件と出典IDの対応、フレーム未確認状況を機械可読で保持 |
 | [data/real_katsuramuki_photo_references_30.json](data/real_katsuramuki_photo_references_30.json) | 30点の機械可読な参照データ（画像自体の転載は禁止複製なし） |
 | [src/rig/knife-pose.js](src/rig/knife-pose.js) | 切れ刃・包丁面・柄の独立座標とGLB用アンカー（画面への接続は後続） |
+| [src/rig/pose-evidence.js](src/rig/pose-evidence.js) | 実写の3回レビュー・別視点校正・ランドマーク記録の証拠ゲート（自動3D採用は禁止） |
+| [docs/KATSURAMUKI_POSE_EVIDENCE_V1_20261022.md](docs/KATSURAMUKI_POSE_EVIDENCE_V1_20261022.md) | 手の保持・刃接点の判定規則と2023年の研究論文の検証状況 |
+| [data/katsuramuki_pose_review_candidates_v1.json](data/katsuramuki_pose_review_candidates_v1.json) | 実写5点＋動画1点の未承認姿勢候補と8対応点の空欄テンプレート |
 | [docs/PAGES_RELEASE_20261019.md](docs/PAGES_RELEASE_20261019.md) | GitHub Pagesの承認、最小公開配信、確認結果・公開進捗 |
 | [src/view3d/geometry.js](src/view3d/geometry.js) | R0から3D大根・刃先・帯の幾何形状への変換 |
 | [src/view3d/scene.js](src/view3d/scene.js) | Three.js描画と全体/接触拡大の2カメラ |
