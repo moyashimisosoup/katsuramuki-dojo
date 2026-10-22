@@ -37,6 +37,44 @@ const handleMat=new THREE.MeshStandardMaterial({color:0x655449,roughness:.9});
 const contactDotMat=new THREE.MeshBasicMaterial({color:0xb54c42,depthTest:false});
 let objects={};
 let model;
+// Every label identifies a MODEL ROLE, not screen-left or screen-right.
+// Three viewports project the same palm anchors using their own camera.
+const roleLabelContainer=$('hand-role-pins');
+const rolePanels=Array.from({length:3},(_,i)=>{
+ const panel=document.createElement('div');
+ panel.className='role-panel'+(i===2?' axis-overlap':'');
+ const make=(side,label)=>{
+  const chip=document.createElement('span');
+  chip.className='role-pin '+side;
+  chip.innerHTML='<i class="pin-dot"></i>'+label;
+  panel.append(chip);
+  return chip;
+ };
+ const left=make('left','左手・大根');
+ const right=make('right','右手・包丁');
+ roleLabelContainer.append(panel);
+ return {panel,left,right};
+});
+const clamp=(x,min,max)=>Math.min(max,Math.max(min,x));
+function placeHandRoleLabels(i,camera){
+ const row=rolePanels[i];
+ if(i===2)return; // Axis camera compresses +X/-X, so these are legend positions.
+ const place=(element,hand)=>{
+  const p=new THREE.Vector3(...hand.palm).project(camera);
+  element.style.left=clamp((p.x+1)*50,22,78).toFixed(1)+'%';
+  element.style.top=clamp((1-p.y)*50,24,90).toFixed(1)+'%';
+ };
+ place(row.left,model.leftHand);
+ place(row.right,model.rightHand);
+ // Preserve both labels even where the two projected palm markers overlap.
+ const y0=parseFloat(row.left.style.top),y1=parseFloat(row.right.style.top);
+ const x0=parseFloat(row.left.style.left),x1=parseFloat(row.right.style.left);
+ if(Math.abs(x0-x1)<35&&Math.abs(y0-y1)<16){
+  row.left.style.top=clamp(y0-9,24,78).toFixed(1)+'%';
+  row.right.style.top=clamp(y1+10,40,91).toFixed(1)+'%';
+ }
+}
+
 function xyz(p){return new THREE.Vector3(...p);}
 function line(group,a,b,material,dashed=false){
  const g=new THREE.BufferGeometry().setFromPoints([xyz(a),xyz(b)]);
@@ -106,6 +144,7 @@ function buildScene(){
  sphere(objects.guides,d.edgeMidpoint,2.5,contactDotMat);
  objects.guides.visible=$('show-guides').checked;
  objects.hands.visible=$('show-hands').checked;
+ roleLabelContainer.style.display=$('show-hands').checked?'grid':'none';
  objects.ribbon.visible=$('show-ribbon').checked && cfg.ribbonLengthMm>0;
  $('contact-value').textContent=cfg.contactAngleDeg+'°（仮）';
  $('blade-face-value').textContent=cfg.bladeFaceAngleDeg+'°（仮）';
@@ -130,6 +169,8 @@ function render(){
   camera.left=-halfHeight*(w/h);camera.right=halfHeight*(w/h);
   camera.top=halfHeight;camera.bottom=-halfHeight;
   camera.updateProjectionMatrix();
+  camera.updateMatrixWorld(true);
+  placeHandRoleLabels(i,camera);
   renderer.render(scene,camera);
  }
  renderer.setScissorTest(false);
@@ -138,7 +179,11 @@ for(const [id,key] of [['contact','contactAngleDeg'],['blade-face','bladeFaceAng
  $(id).addEventListener('input',()=>{cfg[key]=Number($(id).value);buildScene();render();});
 }
 for(const [id,obj] of [['show-guides','guides'],['show-hands','hands'],['show-ribbon','ribbon']]){
- $(id).addEventListener('change',()=>{objects[obj].visible=$(id).checked && (obj!=='ribbon'||cfg.ribbonLengthMm>0);render();});
+ $(id).addEventListener('change',()=>{
+   objects[obj].visible=$(id).checked && (obj!=='ribbon'||cfg.ribbonLengthMm>0);
+   if(obj==='hands')roleLabelContainer.style.display=$(id).checked?'grid':'none';
+   render();
+ });
 }
 $('reset').addEventListener('click',()=>{
  Object.assign(cfg,{...POSE_LAB_DEFAULTS});
