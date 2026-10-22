@@ -62,7 +62,10 @@ test('standalone page references same rig, three panels, and not production main
  const js=readFileSync(new URL('../experiments/pose-lab.js',import.meta.url),'utf8');
  assert.match(html,/斜め正面/);
  assert.match(html,/側面/);assert.match(html,/大根の軸方向/);
- assert.match(html,/pose-lab.js/);
+ assert.match(html,/pose-lab-start.js/);
+ const bootstrap=readFileSync(new URL('../experiments/pose-lab-start.js',import.meta.url),'utf8');
+ assert.match(bootstrap,/import\('\.\/pose-lab.js'\)/);
+ assert.match(bootstrap,/showError/);
  assert.ok(!html.includes('src/main.js\"'));
  assert.match(js,/createPoseLabModel/);
  assert.match(js,/renderer\.render\(scene,camera\)/);
@@ -77,5 +80,14 @@ test('placeholder thumb follows trial contact angle, rather than floating at one
  for(const pose of [a,b]){
   assert.ok(Math.hypot(pose.leftHand.thumb[1],pose.leftHand.thumb[2])>=33);
   assert.ok(Math.hypot(pose.leftHand.thumb[1],pose.leftHand.thumb[2])<=36);
+ }
+});
+
+test('deploy workflow packages all separate pose lab files and checks their public URLs',()=>{
+ const workflow=readFileSync(new URL('../.github/workflows/deploy-pages.yml',import.meta.url),'utf8');
+ for(const item of ['experiments/pose-lab.html','experiments/pose-lab.js',
+   'experiments/pose-lab-start.js','src/rig/pose-lab-model.js','src/rig/knife-pose.js']){
+  assert.ok(workflow.includes(item),item+' missing from published file whitelist');
+  assert.ok(workflow.includes('$SITE/'+item),item+' missing from public delivery checks');
  }
 });
