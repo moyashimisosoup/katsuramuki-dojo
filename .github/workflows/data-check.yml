@@ -25,3 +25,5 @@ jobs:
           node --check src/main.js
           node --check src/view3d/geometry.js
           node --check src/view3d/scene.js
+          node --check src/rig/pose-lab-model.js
+          node --check experiments/pose-lab.js

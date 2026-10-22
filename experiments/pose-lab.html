@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#eef1ee">
+<title>桂むき姿勢ラボ｜APP-022 検証用</title>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js"}}</script>
+<style>
+:root{color-scheme:light;font-family:system-ui,-apple-system,"Hiragino Kaku Gothic ProN",sans-serif;background:#eef1ee;color:#24312f}
+*{box-sizing:border-box}body{margin:0}.wrap{max-width:1180px;margin:auto;padding:16px 16px 44px}
+header{display:flex;gap:18px;justify-content:space-between;align-items:center;flex-wrap:wrap}
+h1{font-size:1.35rem;letter-spacing:.01em;margin:.5em 0}.sub{font-size:.8rem;color:#53645e}
+.flag{display:inline-block;background:#fff4e1;border:1px solid #dec392;border-radius:6px;padding:6px 9px;font-size:.72rem;font-weight:700}
+p{line-height:1.6}.intro{font-size:.86rem;color:#3e4e4a}
+.viewer{position:relative;border-radius:16px;border:1px solid #bac5be;background:#dfe8e4;overflow:hidden;min-height:440px}
+#pose-canvas{width:100%;height:500px;display:block;touch-action:pan-y}
+.view-labels{position:absolute;inset:0;display:grid;grid-template-columns:repeat(3,1fr);pointer-events:none}
+.view-label{font-weight:700;font-size:.78rem;letter-spacing:.03em;color:#334c46;padding:12px 14px;border-right:1px solid #fff8}
+.view-label:last-child{border-right:0}
+.status{position:absolute;left:12px;right:12px;bottom:12px;background:#ffffffd9;padding:9px 12px;border-radius:8px;font-size:.72rem;color:#41574e}
+.controls{margin-top:16px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.control{background:white;border:1px solid #d3dbd5;border-radius:12px;padding:14px}
+label{display:block;font-size:.78rem;font-weight:650}input[type=range]{width:100%;margin-top:12px;accent-color:#5c8475}
+.value{float:right;font-variant-numeric:tabular-nums;color:#3b746a}
+.options{display:flex;gap:14px;flex-wrap:wrap;margin:15px 0;align-items:center;font-size:.83rem}
+.options label{font-weight:500;display:flex;gap:6px;align-items:center}.options input{accent-color:#5c8475}
+button{border:1px solid #a8bcb0;background:white;color:#30483c;border-radius:9px;padding:9px 13px;font-size:.78rem;font-weight:600}
+.notes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}
+.note{background:#fff;border:1px solid #d3dbd5;padding:16px;border-radius:12px;font-size:.8rem}
+.note strong{display:block;margin-bottom:6px}.note ul{padding-left:1.4em;line-height:1.65;margin:7px 0}
+.links{font-size:.78rem;margin:12px 0}.links a{color:#286a70;margin-right:14px}
+kbd{background:#f0f4f1;padding:2px 5px;border-radius:4px;font-family:monospace}
+@media(max-width:720px){.wrap{padding:12px 12px 30px}.viewer{min-height:800px}#pose-canvas{height:930px}.view-labels{grid-template-columns:1fr;grid-template-rows:repeat(3,1fr)}.view-label{border-right:0;border-bottom:1px solid #fff8;padding:8px 12px}.view-label:last-child{border:0}.controls,.notes{grid-template-columns:1fr}.flag{font-size:.7rem}.status{font-size:.68rem}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<header><div><div class="sub">APP-022 / POSE STUDY / PROTOTYPE 01</div><h1>かつらむき・手元姿勢ラボ</h1></div><span class="flag">未校正・3D姿勢未承認</span></header>
+<p class="intro">同じ<strong>一つの3Dシーン</strong>を、斜め正面・側面・大根の軸方向から表示します。<strong>手は指の位置を示す仮の支点</strong>で、実際の指の形を復元したものではありません。まな板による大根の支持は行っていません。</p>
+<section class="viewer" aria-label="同じ桂むき3Dモデルの3視点">
+<canvas id="pose-canvas" role="img" aria-label="同じ大根、包丁、左手と右手の仮支点、薄片を3方向から表示"></canvas>
+<div class="view-labels"><div class="view-label">1 · 斜め正面</div><div class="view-label">2 · 側面</div><div class="view-label">3 · 大根の軸方向</div></div>
+<div class="status" id="scene-status" role="status">3Dレンダラーを準備中。表示値はすべて未校正の仮パラメータです。</div>
+</section>
+<section class="controls" aria-label="検証用の仮パラメータ">
+<div class="control"><label for="contact">切削点の周方向位置 <output id="contact-value" class="value">-60°（仮）</output></label><input id="contact" type="range" min="-85" max="-5" step="5" value="-60"></div>
+<div class="control"><label for="blade-face">刃面方向 <output id="blade-face-value" class="value">0°（仮）</output></label><input id="blade-face" type="range" min="-25" max="25" step="5" value="0"></div>
+<div class="control"><label for="ribbon-length">薄片の表示長 <output id="ribbon-length-value" class="value">38（仮）</output></label><input id="ribbon-length" type="range" min="0" max="70" step="5" value="38"></div>
+</section>
+<div class="options">
+<label><input type="checkbox" id="show-guides" checked>接点・大根軸を強調</label>
+<label><input type="checkbox" id="show-hands" checked>左右の支持点を表示</label>
+<label><input type="checkbox" id="show-ribbon" checked>薄片を表示</label>
+<button type="button" id="reset">仮姿勢を初期化</button>
+</div>
+<div class="links">
+<a href="https://www.tsuji.ac.jp/college/chorishi/blog/files/20211224nihon6.jpg" target="_blank" rel="noopener noreferrer">実写KPHOTO-013（手元）</a>
+<a href="https://www.tsuji.ac.jp/college/chorishi/blog/files/20210603chouri21.jpg" target="_blank" rel="noopener noreferrer">実写KPHOTO-007（指導）</a>
+<a href="https://github.com/moyashimisosoup/katsuramuki-dojo/blob/main/docs/KATSURAMUKI_PHOTO_OBSERVATIONS_20261022.md" target="_blank" rel="noopener noreferrer">目視観察の根拠（GitHub）</a>
+</div>
+<div class="notes">
+<div class="note"><strong>画像で観察できたこと</strong>
+<ul><li>大根を手持ちにする指導がある</li><li>包丁と大根の位置、左右の親指が重要</li><li>薄片は切れ刃付近から一枚の帯として出る</li></ul>
+</div>
+<div class="note"><strong>この試作でまだ確定していないこと</strong>
+<ul><li>手の指関節、実際の支点と握力</li><li>切れ刃・刃面の実角度と上下ストローク</li><li>薄片の重力・曲げ・破断・材料物性</li><li>実動画との同時刻・複数視点の校正</li></ul>
+</div>
+</div>
+<p class="sub">※ このページは検証用モデルです。<kbd>src/main.js</kbd> の公開ゲーム本体とは接続されません。数値は料理指導や実際の包丁操作の推奨値ではありません。</p>
+</main>
+<script type="module" src="./pose-lab-start.js"></script>
+</body>
+</html>
