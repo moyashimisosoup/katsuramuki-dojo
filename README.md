@@ -35,6 +35,7 @@
 | [src/rig/knife-pose.js](src/rig/knife-pose.js) | 切れ刃・包丁面・柄の独立座標とGLB用アンカー（画面への接続は後続） |
 | [src/rig/pose-evidence.js](src/rig/pose-evidence.js) | 実写の3回レビュー・別視点校正・ランドマーク記録の証拠ゲート（自動3D採用は禁止） |
 | [experiments/pose-lab.html](experiments/pose-lab.html) | 独立の実験ページ。**一つの未校正3D姿勢**を正面斜め・側面・軸方向で表示（本体ゲームへ未接続） |
+| [docs/POSE_LAB_HAND_ORIENTATION_20261023.md](docs/POSE_LAB_HAND_ORIENTATION_20261023.md) | 右利きの左手＝大根・右手＝包丁を3視点に文字表示、画面左右との混同を防止 |
 | [docs/POSE_LAB_SINGLE_SCENE_V01_20261022.md](docs/POSE_LAB_SINGLE_SCENE_V01_20261022.md) | 3視点の座標・指の仮支点・受入条件・未検証事項 |
 | [docs/KATSURAMUKI_POSE_EVIDENCE_V1_20261022.md](docs/KATSURAMUKI_POSE_EVIDENCE_V1_20261022.md) | 手の保持・刃接点の判定規則と2023年の研究論文の検証状況 |
 | [docs/KATSURAMUKI_PHOTO_OBSERVATIONS_20261022.md](docs/KATSURAMUKI_PHOTO_OBSERVATIONS_20261022.md) | 実物写真4点の直接目視・隠れた刃先・親指の概略2点を記録（3D姿勢未承認） |
