@@ -33,6 +33,8 @@ const guideMat=new THREE.LineBasicMaterial({color:0xcf6649,depthTest:false,trans
 const axisMat=new THREE.LineDashedMaterial({color:0x728a86,dashSize:3,gapSize:2,depthTest:false});
 const leftMat=new THREE.MeshStandardMaterial({color:0xc19c81,roughness:.8,transparent:true,opacity:.82});
 const rightMat=new THREE.MeshStandardMaterial({color:0x8ca8bb,roughness:.8,transparent:true,opacity:.88});
+const handleMat=new THREE.MeshStandardMaterial({color:0x655449,roughness:.9});
+const contactDotMat=new THREE.MeshBasicMaterial({color:0xb54c42,depthTest:false});
 let objects={};
 let model;
 function xyz(p){return new THREE.Vector3(...p);}
@@ -88,8 +90,7 @@ function buildScene(){
  body.rotation.z=Math.PI/2;objects.base.add(body);
  const blade=bladeMesh(model.knife);objects.base.add(blade);
  // Handle: the only geometry that belongs to the knife extends beyond +X.
- strut(objects.base,model.knife.bladeFaceUpperEnd,model.knife.handleAnchor,3.6,
-   new THREE.MeshStandardMaterial({color:0x655449,roughness:.9}));
+ strut(objects.base,model.knife.bladeFaceUpperEnd,model.knife.handleAnchor,3.6,handleMat);
  objects.ribbon.add(ribbonMesh(model.ribbon));
  // Support points are hypotheses, not actual hands.
  for(const [hand,mat] of [[model.leftHand,leftMat],[model.rightHand,rightMat]]){
@@ -102,7 +103,7 @@ function buildScene(){
  line(objects.guides,model.daikon.axisStart,model.daikon.axisEnd,axisMat,true);
  line(objects.guides,d.edgeStart,d.edgeEnd,guideMat);
  sphere(objects.guides,d.edgeStart,2.2,leftMat);sphere(objects.guides,d.edgeEnd,2.2,rightMat);
- sphere(objects.guides,d.edgeMidpoint,2.5,new THREE.MeshBasicMaterial({color:0xb54c42,depthTest:false}));
+ sphere(objects.guides,d.edgeMidpoint,2.5,contactDotMat);
  objects.guides.visible=$('show-guides').checked;
  objects.hands.visible=$('show-hands').checked;
  objects.ribbon.visible=$('show-ribbon').checked && cfg.ribbonLengthMm>0;
