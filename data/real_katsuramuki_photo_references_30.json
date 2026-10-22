@@ -269,9 +269,11 @@
       "focus": "大根断面が見える正面寄りの職人写真",
       "source_page": "https://camp-fire.jp/projects/770575/view",
       "image_url": "https://static-cache.camp-fire.jp/uploads/editor_uploaded_image/image/4259340/a1bd237bf2618e7d6cff5fa75372d0dc.png?fit=max",
-      "visual_review_status": "search_previewed",
-      "angle_suitability": "not_yet_rated",
-      "rights": "link_only_no_image_copied"
+      "visual_review_status": "original_image_visually_inspected_partial",
+      "angle_suitability": "2d_view_only_unmeasured",
+      "rights": "link_only_no_image_copied",
+      "pose_validation": "not_yet_approved",
+      "inspection_note": "Original PNG visually inspected on 2026-10-22. Practitioner holds radish in hand; thumb and broad peel sheet are identifiable, but knife cutting-edge contact line and calibrated 3D face angle remain unknown. Separate practitioner from Tsuji photos; comparator only."
     },
     {
       "id": "KPHOTO-027",
@@ -314,5 +316,5 @@
       "rights": "link_only_no_image_copied"
     }
   ],
-  "photo_image_individually_inspected": 3
+  "photo_image_individually_inspected": 4
 }
