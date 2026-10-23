@@ -111,13 +111,65 @@ test('three-view pose-lab visibly labels hands by physical role not screen side'
  const js=readFileSync(new URL('../experiments/pose-lab.js',import.meta.url),'utf8');
  assert.match(html,/左手<\/b> 大根を支え/);
  assert.match(html,/右手<\/b> 包丁を持つ/);
- assert.match(html,/画面の左端・右端を示すものではありません/);
+ assert.match(html,/第1・第2ビューでは左手が画面左、右手が画面右/);
  assert.match(html,/id="hand-role-pins"/);
  assert.match(js,/左手・大根/);
  assert.match(js,/右手・包丁/);
- assert.match(js,/new THREE\.Vector3\(\.\.\.hand\.palm\)\.project\(camera\)/);
+ assert.match(js,/poseRoot\.localToWorld\(new THREE\.Vector3\(\.\.\.hand\.palm\)\)\.project\(camera\)/);
  assert.match(js,/placeHandRoleLabels\(i,camera\)/);
  assert.match(js,/axis-overlap/);
  assert.match(js,/roleLabelContainer\.style\.display/);
  assert.match(html,/軸方向では左右の手が奥行きに重なる/);
+});
+
+test('operator-facing screen order is LEFT/daikon then RIGHT/knife across both front cameras',()=>{
+ const js=readFileSync(new URL('../experiments/pose-lab.js',import.meta.url),'utf8');
+ assert.match(js,/poseRoot\.scale\.x=-1;/);
+ assert.match(js,/poseRoot\.add\(o\)/);
+ assert.match(js,/poseRoot\.remove\(group\)/);
+ assert.match(js,/poseRoot\.localToWorld\(new THREE\.Vector3\(\.\.\.hand\.palm\)\)/);
+ // This is a true camera horizontal projection (right = forward cross Y up),
+ // not a naïve comparison between the sign of world X and screen X.
+ const projection=(world,camera)=>{
+  const forward=[-camera[0],-2-camera[1],-camera[2]];
+  const right=[-forward[2],0,forward[0]];
+  const norm=Math.hypot(right[0],right[2]);
+  return (world[0]*right[0]+world[2]*right[2])/norm;
+ };
+ const mirrored=p=>[-p[0],p[1],p[2]];
+ const cameras=[[113,83,-150],[0,28,-210]];
+ for(const angle of [-85,-60,-5]){
+   const m=createPoseLabModel({contactAngleDeg:angle});
+   for(const c of cameras){
+     const left=projection(mirrored(m.leftHand.palm),c);
+     const right=projection(mirrored(m.rightHand.palm),c);
+     assert.ok(left<right,'left-hand marker should be LEFT in operator view at '+angle);
+     const unmirroredLeft=projection(m.leftHand.palm,c);
+     const unmirroredRight=projection(m.rightHand.palm,c);
+     assert.ok(unmirroredLeft>unmirroredRight,'old right/left inversion should be detected');
+   }
+ }
+});
+test('flipping only the first camera X coordinate is NOT a valid left/right repair',()=>{
+ const m=createPoseLabModel();
+ const horizontal=(p,cam)=>{
+  const f=[-cam[0],-2-cam[1],-cam[2]];
+  const right=[-f[2],0,f[0]];
+  return (p[0]*right[0]+p[2]*right[2])/Math.hypot(right[0],right[2]);
+ };
+ for(const camera of [[113,83,-150],[-113,83,-150]]){
+  assert.ok(horizontal(m.leftHand.palm,camera)>horizontal(m.rightHand.palm,camera));
+ }
+});
+test('operator-side visual mirror preserves radish sidewall contact and ribbon edge geometry',()=>{
+ const p=createPoseLabModel();
+ const reflect=a=>[-a[0],a[1],a[2]];
+ const first=reflect(p.ribbon.points[0]),last=reflect(p.ribbon.points[p.ribbon.columns]);
+ assert.deepEqual(first,reflect(p.knife.edgeStart));
+ assert.deepEqual(last,reflect(p.knife.edgeEnd));
+ const originalRadius=Math.hypot(p.knife.edgeMidpoint[1],p.knife.edgeMidpoint[2]);
+ const reflected=reflect(p.knife.edgeMidpoint);
+ close(originalRadius,Math.hypot(reflected[1],reflected[2]));
+ assert.equal(p.leftHand.role,'hold_and_rotate_daikon');
+ assert.equal(p.rightHand.role,'control_knife');
 });
