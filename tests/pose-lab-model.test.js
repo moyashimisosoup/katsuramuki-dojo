@@ -115,7 +115,7 @@ test('three-view pose-lab visibly labels hands by physical role not screen side'
  assert.match(html,/id="hand-role-pins"/);
  assert.match(js,/左手・大根/);
  assert.match(js,/右手・包丁/);
- assert.match(js,/new THREE\.Vector3\(\.\.\.hand\.palm\)\.project\(camera\)/);
+ assert.match(js,/poseRoot\.localToWorld\(new THREE\.Vector3\(\.\.\.hand\.palm\)\)\.project\(camera\)/);
  assert.match(js,/placeHandRoleLabels\(i,camera\)/);
  assert.match(js,/axis-overlap/);
  assert.match(js,/roleLabelContainer\.style\.display/);
