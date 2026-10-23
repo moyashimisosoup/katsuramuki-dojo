@@ -115,5 +115,14 @@
 - **全体6/12=50%、写実動作1/7=14%、ストローク位相3/5=60%据置き**。表示上の改良だけで写実的実技品質の合格数を増やさない。
 - 次の1操作：iPhoneで[公開R0-3D](https://moyashimisosoup.github.io/katsuramuki-dojo/)を開き、刃の送り/傾きを変えて帯の根元を拡大表示して観察。WebGL不可時には「2D模式図・手指省略」の帯の幅を確認する。
 
+## R0刃面・柄の接続点を統一｜2026-10-23
+
+- 旧R0では3Dの刃面と柄が別々の式で配置され、右端に約5.5ゲームmmの**表示上の隙間**があった。
+- [PR #20](https://github.com/moyashimisosoup/katsuramuki-dojo/pull/20)をmainへ統合（commit `9acfecad6cdfd097027e9c11643c418d27431f08`）。[修正仕様](R0_KNIFE_HANDLE_JOINT_FIX_20261023.md)を参照。
+- 切れ刃・刃面・柄の2端点と中心を単一の`buildKnifeDisplayData()`で生成。刃の傾き5種×半径4種でも柄始端と刃面端が一致し、帯の根元と切れ刃が一致する。**R0切削計算・体積・ゲーム操作は無変更**。
+- [PR CI #39894452610](https://github.com/moyashimisosoup/katsuramuki-dojo/actions/runs/39894452610)：**78/78テスト成功**。[Pages #39894534217](https://github.com/moyashimisosoup/katsuramuki-dojo/actions/runs/39894534217) SUCCESS。公開後HTTPチェックもPASSし、3Dコード・テスト・仕様書をmainから読戻し。
+- **未確認**：iPhone実機での継ぎ目の見え方、実物の和包丁刃面・柄の寸法、正しい握り、布状の帯の柔軟物理。**全体6/12=50%、写実動作1/7=14%、ストローク位相3/5=60%は据え置く**。
+- 次の1操作：公開R0の刃先拡大ビューで、刃面と柄の継ぎ目を実機目視。続いて正しい親指の接点と大根の手持ち保持を実演動画から校正する。
+
 ## 次の1操作
 WebGLブラウザで、カメラA/B、切削前後、傾き最大、幅390px相当の描画と入力を検査。構図の破綻があれば修正し、M06の3D-08を完了させる。その後にR1へ進む。
