@@ -60,6 +60,32 @@ export function bladeEdgeEndpoints(daikon,bladeRadius,tilt=0,contactAngle=CONTAC
   const half=daikon.config.width/2;
   return [radialPoint(-half,bladeRadius-tilt*half,contactAngle),radialPoint(half,bladeRadius+tilt*half,contactAngle)];
 }
+/** A connected schematic knife shape. Not measured kitchen-knife dimensions.
+ * Keep the blade edge, face and handle in a single render-independent frame.
+ * In particular the cylinder handle START must meet the face upper corner.
+ * That avoids the previously visible gap from unrelated handle placement math.
+ */
+export function buildKnifeDisplayData(daikon,bladeRadius,tilt=0,{
+  faceRise=13,faceDepth=11,handleLength=34
+}={}){
+  if(![bladeRadius,tilt,faceRise,faceDepth,handleLength].every(Number.isFinite) ||
+      faceRise<=0||faceDepth<0||handleLength<=0)throw new RangeError('Invalid display knife geometry');
+  const [a,b]=bladeEdgeEndpoints(daikon,bladeRadius,tilt);
+  const faceAt=p=>[p[0],p[1]+faceRise,p[2]+faceDepth];
+  const upperA=faceAt(a),upperB=faceAt(b);
+  // The simplified handle extends axially directly from the upper heel.
+  const handleStart=upperB.slice();
+  const handleEnd=[upperB[0]+handleLength,upperB[1],upperB[2]];
+  const handleCenter=[(handleStart[0]+handleEnd[0])/2,handleStart[1],handleStart[2]];
+  return {
+    bladePositions:new Float32Array([...a,...b,...upperB,...upperA]),
+    bladeIndices:new Uint32Array([0,1,2,0,2,3]),
+    cuttingEdgeStart:a,cuttingEdgeEnd:b,faceUpperStart:upperA,faceUpperEnd:upperB,
+    handleStart,handleEnd,handleCenter,handleLength,
+    calibration:'unmeasured_view_only_geometry'
+  };
+}
+
 /** An uncalibrated kinematic guide path, not a gravity/cloth solver. */
 export function ribbonGuidePoint(distance,contactR,contactAngle=CONTACT_ANGLE){
   // The first row of the peeled sheet is the exact blade edge. No
