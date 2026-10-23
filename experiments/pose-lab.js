@@ -14,6 +14,15 @@ catch(e){status.textContent='WebGLが利用できません。3D描画は確認�
 renderer.setPixelRatio(Math.min(1.7,window.devicePixelRatio||1));
 renderer.outputColorSpace=THREE.SRGBColorSpace;
 const scene=new THREE.Scene();scene.background=new THREE.Color('#e7eeeb');
+// Display the entire schematic in the RIGHT-HANDED operator orientation.
+// With negative-Z viewing cameras, +X projects to screen-left.
+// Mirroring ALL pose geometry across X makes the daikon-holding LEFT hand
+// screen-left and the knife-operating RIGHT hand screen-right, without moving
+// the sidewall blade contact behind the radish.
+// This is a VIEW reorientation only, not a measured change to knife anatomy.
+const poseRoot=new THREE.Group();
+poseRoot.scale.x=-1;
+scene.add(poseRoot);
 scene.add(new THREE.HemisphereLight(0xffffff,0x96b4a4,2));
 const sun=new THREE.DirectionalLight(0xffffff,2);sun.position.set(80,140,-90);scene.add(sun);
 const fill=new THREE.DirectionalLight(0xf1f1ff,.7);fill.position.set(-80,30,70);scene.add(fill);
@@ -60,7 +69,8 @@ function placeHandRoleLabels(i,camera){
  const row=rolePanels[i];
  if(i===2)return; // Axis camera compresses +X/-X, so these are legend positions.
  const place=(element,hand)=>{
-  const p=new THREE.Vector3(...hand.palm).project(camera);
+  // Labels must use the *rendered* world coordinates, including X mirroring.
+  const p=poseRoot.localToWorld(new THREE.Vector3(...hand.palm)).project(camera);
   element.style.left=clamp((p.x+1)*50,22,78).toFixed(1)+'%';
   element.style.top=clamp((1-p.y)*50,24,90).toFixed(1)+'%';
  };
@@ -117,13 +127,13 @@ function ribbonMesh(ribbon){
 function destroy(group){
  if(!group)return;
  group.traverse(o=>{if(o.geometry)o.geometry.dispose();});
- scene.remove(group);
+ poseRoot.remove(group);
 }
 function buildScene(){
  model=createPoseLabModel(cfg);
  for(const g of Object.values(objects))destroy(g);
  objects={base:new THREE.Group(),hands:new THREE.Group(),guides:new THREE.Group(),ribbon:new THREE.Group()};
- for(const o of Object.values(objects))scene.add(o);
+ for(const o of Object.values(objects))poseRoot.add(o);
  const body=new THREE.Mesh(new THREE.CylinderGeometry(model.daikon.radius,model.daikon.radius,model.daikon.width,64),bodyMat);
  body.rotation.z=Math.PI/2;objects.base.add(body);
  const blade=bladeMesh(model.knife);objects.base.add(blade);
@@ -170,6 +180,7 @@ function render(){
   camera.top=halfHeight;camera.bottom=-halfHeight;
   camera.updateProjectionMatrix();
   camera.updateMatrixWorld(true);
+  poseRoot.updateWorldMatrix(true,false);
   placeHandRoleLabels(i,camera);
   renderer.render(scene,camera);
  }
