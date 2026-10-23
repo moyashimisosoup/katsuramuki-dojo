@@ -105,5 +105,15 @@
 - **全体6/12=50%、写実動作1/7=14%、ストローク位相3/5=60%を据え置く。** 現行公開ゲームの物理・UIには変更なし。
 - 次の1操作：同一実演者の同じ動作から、実際の刃元・切先・円柱側面の接点が見える連続2〜3フレームを確認する。未確認の座標・角度はモデルに入力しない。
 
+## R0刃先・薄片の始端一致｜2026-10-23
+
+- APP-022：[PR #19](https://github.com/moyashimisosoup/katsuramuki-dojo/pull/19)をmainへsquash統合、commit `28edaaf8fa7224fc5a0aaea7a315c8468b96f543`。
+- [変更仕様](R0_CUT_CONTACT_RIBBON_FIX_20261023.md)を参照。3Dでは薄片の根元が切れ刃から離れる+0.5モデルmmの表示ずれをなくし、刃の傾き`tilt`を薄片の両端座標に反映。2D代替模式図は直立大根＋紐線から横向き大根＋刃に連続する一枚の幅広帯へ変更。帯が途切れたら表示を消す。**R0の切削量・体積保存アルゴリズムは無変更**。
+- [PR側CI #39883997074](https://github.com/moyashimisosoup/katsuramuki-dojo/actions/runs/39883997074) **75/75テスト成功**。刃の傾き3種×接触角3種の全9条件で3D薄片の両端が切れ刃の端点と一致。2Dの帯始端・表示幅・切断後非表示を検査。
+- [Pages #39884087057](https://github.com/moyashimisosoup/katsuramuki-dojo/actions/runs/39884087057) SUCCESS。deployログの「Static site, 3D game and pose lab are reachable」確認。新モジュール`src/view/schematic-layout.js`のHTTP取得を公開後チェックに追加。新しいコードと検証ファイルをmainから読戻し。
+- **未確認**：iPhoneの3D表示実体・更新後2D代替表示の見た目、手指の構え、切れ刃の実形状、薄片の重力・抵抗と破断。過去スクリーンショットを最新WebGL表示の根拠と扱わない。3Dの正しい実技姿勢の正式採用0件。
+- **全体6/12=50%、写実動作1/7=14%、ストローク位相3/5=60%据置き**。表示上の改良だけで写実的実技品質の合格数を増やさない。
+- 次の1操作：iPhoneで[公開R0-3D](https://moyashimisosoup.github.io/katsuramuki-dojo/)を開き、刃の送り/傾きを変えて帯の根元を拡大表示して観察。WebGL不可時には「2D模式図・手指省略」の帯の幅を確認する。
+
 ## 次の1操作
 WebGLブラウザで、カメラA/B、切削前後、傾き最大、幅390px相当の描画と入力を検査。構図の破綻があれば修正し、M06の3D-08を完了させる。その後にR1へ進む。
