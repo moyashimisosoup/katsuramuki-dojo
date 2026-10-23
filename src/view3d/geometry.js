@@ -62,7 +62,10 @@ export function bladeEdgeEndpoints(daikon,bladeRadius,tilt=0,contactAngle=CONTAC
 }
 /** An uncalibrated kinematic guide path, not a gravity/cloth solver. */
 export function ribbonGuidePoint(distance,contactR,contactAngle=CONTACT_ANGLE){
-  const root=radialPoint(0,contactR+.5,contactAngle);
+  // The first row of the peeled sheet is the exact blade edge. No
+  // arbitrary clearance: a gap here makes the sheet appear to emerge
+  // below the knife rather than separate from its cutting edge.
+  const root=radialPoint(0,contactR,contactAngle);
   const s=Math.max(0,distance);
   let y,z;
   if(s<=18){y=root[1]-s*.18;z=root[2]+s*.98;}
@@ -70,16 +73,25 @@ export function ribbonGuidePoint(distance,contactR,contactAngle=CONTACT_ANGLE){
   else {const t=s-90;y=Math.max(-49,root[1]-65.88)+2*Math.sin(t/13);z=root[2]+40.68+t*.48;}
   return [y,z];
 }
-export function buildRibbonMeshData(daikon,bladeRadius,{contactAngle=CONTACT_ANGLE,maxVisibleLength=156,step=3.5}={}) {
+export function buildRibbonMeshData(daikon,bladeRadius,{contactAngle=CONTACT_ANGLE,tilt=0,maxVisibleLength=156,step=3.5}={}) {
+  if(![bladeRadius,contactAngle,tilt,maxVisibleLength,step].every(Number.isFinite) ||
+      maxVisibleLength<0 || step<=0)throw new RangeError('Invalid ribbon presentation parameters');
   const length=Math.min(maxVisibleLength,daikon.currentRibbonLength);
   if(length<.0001)return {positions:new Float32Array(0),indices:new Uint32Array(0),length:0};
   const sections=Math.max(2,Math.ceil(length/step));
-  const width=daikon.config.width;
+  // Each edge point inherits the *same* axial tilt as the actual blade.
+  // Previously the sheet ignored tilt and started 0.5 mm off the edge.
+  const [leftEdge,rightEdge]=bladeEdgeEndpoints(daikon,bladeRadius,tilt,contactAngle);
+  const nominal=radialPoint(0,bladeRadius,contactAngle);
   const positions=[];const indices=[];
   for(let i=0;i<=sections;i++){
     const s=length*i/sections;
-    const [y,z]=ribbonGuidePoint(s,bladeRadius,contactAngle);
-    positions.push(-width/2,y,z,width/2,y,z);
+    const [guideY,guideZ]=ribbonGuidePoint(s,bladeRadius,contactAngle);
+    const dy=guideY-nominal[1],dz=guideZ-nominal[2];
+    positions.push(
+      leftEdge[0],leftEdge[1]+dy,leftEdge[2]+dz,
+      rightEdge[0],rightEdge[1]+dy,rightEdge[2]+dz
+    );
     if(i<sections){const v=2*i; indices.push(v,v+1,v+2,v+1,v+3,v+2);}
   }
   return {positions:new Float32Array(positions),indices:new Uint32Array(indices),length};
