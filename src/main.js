@@ -56,7 +56,7 @@ function tick(t){
    if(guard>=5)acc=0;
  }else acc=0;
  if(view3D)view3D.render(daikon);
- else drawScene(sceneCanvas,daikon,bladeRadius,t);
+ else drawScene(sceneCanvas,daikon,bladeRadius,t,Number($('tilt').value));
  requestAnimationFrame(tick);
 }
 document.addEventListener('visibilitychange',()=>{
@@ -80,7 +80,7 @@ async function boot(){
   const replacement=document.createElement('canvas');replacement.id='scene';
   replacement.setAttribute('role','img');replacement.setAttribute('aria-label','大根と包丁の2D代替表示');
   sceneCanvas.replaceWith(replacement);sceneCanvas=replacement;
-  $('view-status').textContent='2D代替表示（3Dが利用できません）';
+  $('view-status').textContent='2D模式図（3Dが利用できません・手指省略）';
   $('camera-switch').disabled=true;
  }
  refreshControls();reset();requestAnimationFrame(tick);
