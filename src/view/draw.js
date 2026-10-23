@@ -1,4 +1,5 @@
 import {surfaceRadius} from '../physics/surface.js';
+import {buildCuttingSchematic} from './schematic-layout.js';
 const TWO_PI=Math.PI*2;
 function fit(canvas){
  const rect=canvas.getBoundingClientRect(),dpr=Math.min(devicePixelRatio||1,2);
@@ -13,56 +14,88 @@ function ellipse(ctx,x,y,rx,ry,color,stroke){
  ctx.fillStyle=color;ctx.fill();
  if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=1;ctx.stroke();}
 }
-export function drawScene(canvas,daikon,bladeRadius,animatedTime){
+export function drawScene(canvas,daikon,bladeRadius,animatedTime,tilt=0){
  const {ctx,w,h}=fit(canvas);ctx.clearRect(0,0,w,h);
  const scale=Math.min(w/700,h/335),ox=(w-700*scale)/2,oy=(h-335*scale)/2;
+ const layout=buildCuttingSchematic(daikon,bladeRadius,tilt);
+ const {leftX,rightX,centerY,screenRadius,edgeStart,edgeEnd,rows}=layout;
  ctx.save();ctx.translate(ox,oy);ctx.scale(scale,scale);
- const x=244,top=55,bot=270,initialR=75;
  ctx.fillStyle='#f5f6ef';ctx.beginPath();ctx.roundRect(20,22,660,286,18);ctx.fill();
  ctx.strokeStyle='#e4e8dd';ctx.lineWidth=1;ctx.stroke();
  ctx.strokeStyle='#e3e7dc';ctx.lineWidth=1;
- for(let i=0;i<6;i++){ctx.beginPath();ctx.moveTo(40,292-i*45);ctx.lineTo(663,292-i*45);ctx.stroke();}
- ctx.fillStyle='#e1e7dc';ctx.globalAlpha=.5;ctx.fillRect(x-initialR,top,initialR*2,bot-top);ctx.globalAlpha=1;
- ctx.fillStyle='#d6e1d2';ctx.beginPath();ctx.ellipse(x,top,initialR,17,0,0,TWO_PI);ctx.fill();
- const left=[],right=[];
- for(let j=0;j<daikon.config.axialBins;j++){
-   const z=daikon.config.width*(j+.5)/daikon.config.axialBins;
-   const r=surfaceRadius(daikon,daikon.angle,z),y=top+(j+.5)/daikon.config.axialBins*(bot-top);
-   left.push([x-r/35*initialR,y]);right.push([x+r/35*initialR,y]);
+ for(let i=0;i<5;i++){ctx.beginPath();ctx.moveTo(38,279-i*43);ctx.lineTo(665,279-i*43);ctx.stroke();}
+ // A horizontally supported cylinder: the axial direction and the
+ // full-width blade edge both run from image-left to image-right.
+ const {width,radius,axialBins}=daikon.config;
+ const upper=[],lower=[];
+ for(let i=0;i<=axialBins;i++){
+   const z=i*width/axialBins,x=leftX+(rightX-leftX)*i/axialBins;
+   const r=surfaceRadius(daikon,daikon.angle,z)/radius*screenRadius;
+   upper.push([x,centerY-r]);lower.push([x,centerY+r]);
  }
- const topR=surfaceRadius(daikon,daikon.angle,0)/35*initialR;
- const bottomR=surfaceRadius(daikon,daikon.angle,daikon.config.width)/35*initialR;
- const grad=ctx.createLinearGradient(x-initialR,0,x+initialR,0);
- grad.addColorStop(0,'#c4d4c1');grad.addColorStop(.2,'#e6eee1');
- grad.addColorStop(.45,'#fffff6');grad.addColorStop(.8,'#e8eee3');grad.addColorStop(1,'#b9cdb9');
- ctx.beginPath();ctx.moveTo(x-topR,top);
- for(const p of left)ctx.lineTo(...p);ctx.lineTo(x-bottomR,bot);ctx.lineTo(x+bottomR,bot);
- for(const p of [...right].reverse())ctx.lineTo(...p);
- ctx.lineTo(x+topR,top);ctx.closePath();ctx.fillStyle=grad;ctx.fill();ctx.strokeStyle='#9ab09a';ctx.lineWidth=1.2;ctx.stroke();
- ellipse(ctx,x,top,topR,15,'#f9fbf4','#92ad95');
- ellipse(ctx,x,bot,bottomR,15,'#e3ece0','#92ad95');
- const stripAnchor=x+surfaceRadius(daikon,daikon.angle,daikon.config.width*.52)/35*initialR;
- if(daikon.ribbonLength>0){
-   const lengthVisual=Math.min(270,50+Math.sqrt(daikon.currentRibbonLength)*9);
-   const waviness=window.matchMedia('(prefers-reduced-motion: reduce)').matches?0:Math.sin(animatedTime*.0015)*4;
-   ctx.save();ctx.lineCap='round';ctx.shadowColor='#6d8c7244';ctx.shadowBlur=10;ctx.shadowOffsetY=6;
-   ctx.strokeStyle='#d1e2d1';ctx.lineWidth=23;
-   ctx.beginPath();ctx.moveTo(stripAnchor+5,177);
-   ctx.bezierCurveTo(stripAnchor+54,183,370,206,430,198+waviness);
-   ctx.bezierCurveTo(485,183,430+lengthVisual*.24,251,stripAnchor+lengthVisual,260+waviness);ctx.stroke();
-   ctx.shadowBlur=0;ctx.shadowOffsetY=0;ctx.strokeStyle='#fbfff7';ctx.lineWidth=20;ctx.stroke();
-   ctx.strokeStyle='#ffffffb4';ctx.lineWidth=2;ctx.stroke();ctx.restore();
+ const grad=ctx.createLinearGradient(0,centerY-screenRadius,0,centerY+screenRadius);
+ grad.addColorStop(0,'#d2dfd1');grad.addColorStop(.23,'#fbfff7');
+ grad.addColorStop(.54,'#eaf2e8');grad.addColorStop(1,'#bbcfba');
+ ctx.beginPath();ctx.moveTo(...upper[0]);
+ for(const p of upper.slice(1))ctx.lineTo(...p);
+ for(const p of [...lower].reverse())ctx.lineTo(...p);
+ ctx.closePath();ctx.fillStyle=grad;ctx.fill();
+ ctx.strokeStyle='#9ab39d';ctx.lineWidth=1.5;ctx.stroke();
+ // Elliptical end faces emphasize the horizontal cylinder axis.
+ ellipse(ctx,leftX,centerY,13,(upper[0][1]-lower[0][1])/-2,'#eff7eb','#a5b9a3');
+ ellipse(ctx,rightX,centerY,13,(upper[upper.length-1][1]-lower[lower.length-1][1])/-2,'#eef5e9','#a5b9a3');
+ // The sheet is a FILLED band across the full axial blade width.
+ // The first row exactly coincides with the knife edge, including tilt.
+ if(rows.length>0){
+   ctx.save();
+   ctx.beginPath();ctx.moveTo(...rows[0].left);
+   for(let i=1;i<rows.length;i++)ctx.lineTo(...rows[i].left);
+   for(let i=rows.length-1;i>=0;i--)ctx.lineTo(...rows[i].right);
+   ctx.closePath();
+   const paper=ctx.createLinearGradient(leftX,0,rightX+30,0);
+   paper.addColorStop(0,'#d6ebd8');paper.addColorStop(.48,'#fafff6');
+   paper.addColorStop(1,'#c4ddc7');
+   ctx.fillStyle=paper;ctx.shadowColor='#597d6550';ctx.shadowBlur=7;ctx.shadowOffsetY=6;ctx.fill();
+   ctx.shadowBlur=0;ctx.shadowOffsetY=0;
+   ctx.strokeStyle='#9fbea3';ctx.lineWidth=1.3;ctx.stroke();
+   // Fine longitudinal fold is for legibility, not a force simulation.
+   ctx.beginPath();
+   ctx.moveTo((edgeStart[0]+edgeEnd[0])/2,(edgeStart[1]+edgeEnd[1])/2);
+   for(let i=1;i<rows.length;i++){
+     const row=rows[i];ctx.lineTo((row.left[0]+row.right[0])/2,(row.left[1]+row.right[1])/2);
+   }
+   ctx.strokeStyle='#ffffffe3';ctx.lineWidth=2;ctx.stroke();ctx.restore();
+   const end=rows[rows.length-1];
+   ctx.fillStyle='#688a74';ctx.font='600 12px system-ui';
+   ctx.fillText('一枚の薄片',rightX+37,Math.min(305,(end.right[1]+end.left[1])/2+12));
  }
- const bx=stripAnchor-2;
- ctx.fillStyle='#b7c4cd';ctx.strokeStyle='#667d83';ctx.lineWidth=1.3;
- ctx.beginPath();ctx.moveTo(bx-10,117);ctx.lineTo(bx+105,88);
- ctx.lineTo(bx+115,104);ctx.lineTo(bx+3,157);ctx.closePath();ctx.fill();ctx.stroke();
- ctx.strokeStyle='#f1f5f8';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(bx+3,157);ctx.lineTo(bx+115,104);ctx.stroke();
- ctx.fillStyle='#8b9d91';ctx.beginPath();ctx.roundRect(bx+101,79,31,36,5);ctx.fill();
- ctx.fillStyle='#577366';ctx.font='600 12px system-ui';ctx.fillText('回転',113,45);
- ctx.strokeStyle='#8fab91';ctx.lineWidth=2;ctx.beginPath();ctx.arc(x,top,97,Math.PI*1.18,Math.PI*1.65);ctx.stroke();
- ctx.fillStyle='#8fab91';ctx.beginPath();ctx.moveTo(x+43,top-87);ctx.lineTo(x+53,top-96);ctx.lineTo(x+39,top-99);ctx.fill();
- ctx.fillStyle='#5d7b65';ctx.font='12px system-ui';ctx.fillText('むけた帯',474,278);
+ // Knife face and visible edge are tied to EXACTLY the same contact endpoints.
+ const faceH=30;
+ ctx.beginPath();ctx.moveTo(...edgeStart);ctx.lineTo(...edgeEnd);
+ ctx.lineTo(edgeEnd[0],edgeEnd[1]-faceH);
+ ctx.lineTo(edgeStart[0],edgeStart[1]-faceH);
+ ctx.closePath();
+ const steel=ctx.createLinearGradient(0,edgeEnd[1]-faceH,0,edgeEnd[1]);
+ steel.addColorStop(0,'#9fb3bb');steel.addColorStop(1,'#e3edf0');
+ ctx.fillStyle=steel;ctx.strokeStyle='#647f85';ctx.lineWidth=1.2;
+ ctx.fill();ctx.stroke();
+ ctx.beginPath();ctx.moveTo(...edgeStart);ctx.lineTo(...edgeEnd);
+ ctx.strokeStyle='#54747b';ctx.lineWidth=3.2;ctx.stroke();
+ ctx.beginPath();ctx.moveTo(edgeStart[0],edgeStart[1]-1.3);ctx.lineTo(edgeEnd[0],edgeEnd[1]-1.3);
+ ctx.strokeStyle='#faffff';ctx.lineWidth=1.2;ctx.stroke();
+ // Handle is an intentionally schematic continuation of the blade.
+ const handleY=edgeEnd[1]-faceH*.53;
+ ctx.fillStyle='#667d70';ctx.beginPath();ctx.roundRect(rightX+6,handleY-6,92,15,6);ctx.fill();
+ ctx.fillStyle='#4d665b';ctx.beginPath();ctx.roundRect(rightX+81,handleY-11,19,25,5);ctx.fill();
+ // Contact mark and rotation indication.
+ ctx.fillStyle='#557c63';ctx.beginPath();ctx.arc(edgeStart[0],edgeStart[1],3.5,0,TWO_PI);ctx.fill();
+ ctx.fillStyle='#61806b';ctx.font='600 12px system-ui';
+ ctx.fillText('大根の回転（模式）',160,46);
+ ctx.strokeStyle='#8dab91';ctx.lineWidth=2;ctx.beginPath();ctx.arc(leftX,centerY,83,Math.PI*1.1,Math.PI*1.62);ctx.stroke();
+ ctx.beginPath();ctx.moveTo(169,61);ctx.lineTo(181,55);ctx.lineTo(177,68);ctx.fillStyle='#8dab91';ctx.fill();
+ ctx.fillStyle='#789084';ctx.font='12px system-ui';
+ ctx.fillText('切れ刃＝薄片の根元',410,235);
+ ctx.fillStyle='#899a8d';ctx.font='11px system-ui';ctx.fillText('2D模式図・手指は省略',44,295);
  ctx.restore();
 }
 export function drawSurface(canvas,d){

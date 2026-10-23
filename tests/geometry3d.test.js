@@ -48,3 +48,41 @@ test('max ribbon segment count stays bounded for long sessions',()=>{
  const m=buildRibbonMeshData(d,31);
  assert.equal(m.length,156);assert.ok(m.positions.length<1000);
 });
+
+test('3D peel sheet starts at the real knife edge, even with axial blade tilt',()=>{
+ const d=createDaikon();
+ cutSweep(d,{deltaAngle:.45,bladeRadiusStart:34,tilt:.015});
+ assert.ok(d.currentRibbonLength>0);
+ for(const tilt of [-.045,0,.04]){
+  for(const contactAngle of [.45,CONTACT_ANGLE,1.45]){
+   const r=buildRibbonMeshData(d,34,{tilt,contactAngle});
+   const [start,end]=bladeEdgeEndpoints(d,34,tilt,contactAngle);
+   assert.ok(r.length>0);
+   for(let k=0;k<3;k++){
+    close(r.positions[k],start[k],.00001);
+    close(r.positions[k+3],end[k],.00001);
+   }
+   for(let i=0;i<r.positions.length;i+=6){
+    // A full-width sheet keeps its 50-game-mm axial span throughout.
+    close(r.positions[i+3]-r.positions[i],d.config.width,.00001);
+    assert.ok(Number.isFinite(r.positions[i+1]));
+    assert.ok(Number.isFinite(r.positions[i+2]));
+   }
+  }
+ }
+});
+test('3D ribbon disappears on break even when historical ribbon length remains positive',()=>{
+ const d=createDaikon();
+ cutSweep(d,{deltaAngle:.5,bladeRadiusStart:34});
+ assert.ok(d.ribbonLength>0);
+ d.currentRibbonLength=0;
+ const r=buildRibbonMeshData(d,34);
+ assert.equal(r.length,0);
+ assert.equal(r.positions.length,0);
+});
+test('3D ribbon rejects nonsensical view-only parameters rather than hiding cutting gaps',()=>{
+ const d=createDaikon();
+ d.currentRibbonLength=10;
+ assert.throws(()=>buildRibbonMeshData(d,34,{tilt:NaN}),RangeError);
+ assert.throws(()=>buildRibbonMeshData(d,34,{step:0}),RangeError);
+});

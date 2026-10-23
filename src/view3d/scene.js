@@ -49,7 +49,7 @@ export function createThreeView(canvas){
   if(body){body.geometry.dispose();body.geometry=geometry;body.rotation.x=0;}
   else {body=new THREE.Mesh(geometry,DAICON_MATERIAL);scene.add(body);}
   lastMeshedAngle=state.angle;
-  const ribbonGeo=toGeometry(buildRibbonMeshData(state,bladeRadius));
+  const ribbonGeo=toGeometry(buildRibbonMeshData(state,bladeRadius,{tilt}));
   if(ribbon){ribbon.geometry.dispose();ribbon.geometry=ribbonGeo;ribbon.visible=state.currentRibbonLength>.0001;}
   else {ribbon=new THREE.Mesh(ribbonGeo,RIBBON_MATERIAL);scene.add(ribbon);}
   const knifeGeo=knifeShape(state,bladeRadius,tilt);
