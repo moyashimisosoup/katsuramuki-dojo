@@ -2,7 +2,7 @@
  * Only mesh appearance is synthetic. This module never changes cutting results.
  */
 import * as THREE from 'three';
-import {buildSurfaceMeshData,buildRibbonMeshData,bladeEdgeEndpoints,CONTACT_ANGLE} from './geometry.js';
+import {buildSurfaceMeshData,buildRibbonMeshData,buildKnifeDisplayData,bladeEdgeEndpoints} from './geometry.js';
 const DAICON_MATERIAL=new THREE.MeshStandardMaterial({color:0xe9f0df,roughness:.78,metalness:0,side:THREE.DoubleSide});
 const RIBBON_MATERIAL=new THREE.MeshStandardMaterial({color:0xf6ffe9,transparent:true,opacity:.80,roughness:.42,side:THREE.DoubleSide,depthWrite:false});
 const BLADE_MATERIAL=new THREE.MeshStandardMaterial({color:0xc0cbd0,metalness:.48,roughness:.3,side:THREE.DoubleSide});
@@ -13,14 +13,6 @@ function toGeometry(data){
  geo.setIndex(new THREE.BufferAttribute(data.indices,1));
  if(!data.normals && data.positions.length)geo.computeVertexNormals();
  return geo;
-}
-function knifeShape(daikon,bladeRadius,tilt){
- const [a,b]=bladeEdgeEndpoints(daikon,bladeRadius,tilt);
- const lift=[0,13,11];
- return toGeometry({positions:new Float32Array([...a,...b,
-   b[0]+lift[0],b[1]+lift[1],b[2]+lift[2],
-   a[0]+lift[0],a[1]+lift[1],a[2]+lift[2]]),
-   indices:new Uint32Array([0,1,2,0,2,3])});
 }
 export function createThreeView(canvas){
  const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false,powerPreference:'low-power'});
@@ -52,16 +44,19 @@ export function createThreeView(canvas){
   const ribbonGeo=toGeometry(buildRibbonMeshData(state,bladeRadius,{tilt}));
   if(ribbon){ribbon.geometry.dispose();ribbon.geometry=ribbonGeo;ribbon.visible=state.currentRibbonLength>.0001;}
   else {ribbon=new THREE.Mesh(ribbonGeo,RIBBON_MATERIAL);scene.add(ribbon);}
-  const knifeGeo=knifeShape(state,bladeRadius,tilt);
+  const knifeData=buildKnifeDisplayData(state,bladeRadius,tilt);
+  const knifeGeo=toGeometry({positions:knifeData.bladePositions,indices:knifeData.bladeIndices});
   if(knife){knife.geometry.dispose();knife.geometry=knifeGeo;}
   else {knife=new THREE.Mesh(knifeGeo,BLADE_MATERIAL);scene.add(knife);}
-  const [,b]=bladeEdgeEndpoints(state,bladeRadius,tilt);
-  const handleStart=new THREE.Vector3(state.config.width/2+3,b[1]+10,b[2]+8);
   if(!knifeHandle){
-    knifeHandle=new THREE.Mesh(new THREE.CylinderGeometry(4,5,31,12),new THREE.MeshStandardMaterial({color:0x785b45,roughness:.91}));
+    knifeHandle=new THREE.Mesh(
+      new THREE.CylinderGeometry(4,5,knifeData.handleLength,12),
+      new THREE.MeshStandardMaterial({color:0x785b45,roughness:.91})
+    );
     knifeHandle.rotation.z=Math.PI/2;scene.add(knifeHandle);
   }
-  knifeHandle.position.copy(handleStart).add(new THREE.Vector3(18,0,0));
+  // The handle cylinder now starts EXACTLY at the blade upper corner.
+  knifeHandle.position.set(...knifeData.handleCenter);
   const [a,b2]=bladeEdgeEndpoints(state,bladeRadius,tilt);
   const lineGeometry=new THREE.BufferGeometry();
   lineGeometry.setAttribute('position',new THREE.BufferAttribute(new Float32Array([...a,...b2]),3));

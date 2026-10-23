@@ -1,7 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {createDaikon,cutSweep} from '../src/physics/surface.js';
-import {buildSurfaceMeshData,bladeEdgeEndpoints,buildRibbonMeshData,worldAngle,CONTACT_ANGLE} from '../src/view3d/geometry.js';
+import {buildSurfaceMeshData,bladeEdgeEndpoints,buildRibbonMeshData,buildKnifeDisplayData,worldAngle,CONTACT_ANGLE} from '../src/view3d/geometry.js';
 const close=(v,w,tol=1e-5)=>assert.ok(Math.abs(v-w)<tol,`${v} != ${w}`);
 test('R0 initial surface is finite, with fixed triangles and capped mesh',()=>{
  const d=createDaikon();const m=buildSurfaceMeshData(d);
@@ -85,4 +85,45 @@ test('3D ribbon rejects nonsensical view-only parameters rather than hiding cutt
  d.currentRibbonLength=10;
  assert.throws(()=>buildRibbonMeshData(d,34,{tilt:NaN}),RangeError);
  assert.throws(()=>buildRibbonMeshData(d,34,{step:0}),RangeError);
+});
+
+test('R0 schematic knife handle has ZERO gap to blade face over supported tilt range',()=>{
+ const d=createDaikon();
+ for(const tilt of [-.055,-.02,0,.02,.055]){
+   for(const radius of [35,34.5,25,8]){
+     const k=buildKnifeDisplayData(d,radius,tilt);
+     const [a,b]=bladeEdgeEndpoints(d,radius,tilt);
+     for(let i=0;i<3;i++){
+       close(k.cuttingEdgeStart[i],a[i]);
+       close(k.cuttingEdgeEnd[i],b[i]);
+       close(k.faceUpperEnd[i],k.handleStart[i]);
+       close(k.handleCenter[i],(k.handleStart[i]+k.handleEnd[i])/2);
+     }
+     close(Math.hypot(k.handleEnd[0]-k.handleStart[0],
+       k.handleEnd[1]-k.handleStart[1],k.handleEnd[2]-k.handleStart[2]),k.handleLength);
+     assert.equal(k.bladePositions.length,12);
+     assert.equal(k.bladeIndices.length,6);
+     assert.match(k.calibration,/unmeasured/);
+   }
+ }
+});
+test('R0 ribbon root is identical to connected blade edge at every supported tilt',()=>{
+ const d=createDaikon();
+ cutSweep(d,{deltaAngle:.55,bladeRadiusStart:34.0});
+ assert.ok(d.currentRibbonLength>0);
+ for(const tilt of [-.055,0,.055]){
+   const data=buildKnifeDisplayData(d,34,tilt);
+   const band=buildRibbonMeshData(d,34,{tilt});
+   for(let i=0;i<3;i++){
+     close(band.positions[i],data.cuttingEdgeStart[i]);
+     close(band.positions[i+3],data.cuttingEdgeEnd[i]);
+   }
+ }
+});
+test('display knife rejects invalid dimensions without modifying R0 material',()=>{
+ const d=createDaikon(), before=d.removedVolume;
+ assert.throws(()=>buildKnifeDisplayData(d,34,0,{handleLength:0}),RangeError);
+ assert.throws(()=>buildKnifeDisplayData(d,34,0,{faceRise:NaN}),RangeError);
+ assert.throws(()=>buildKnifeDisplayData(d,34,0,{faceDepth:-1}),RangeError);
+ assert.equal(d.removedVolume,before);
 });
