@@ -31,10 +31,20 @@ const cameras=[
  new THREE.OrthographicCamera(-100,100,100,-100,.1,800),
  new THREE.OrthographicCamera(-100,100,100,-100,.1,800)
 ];
-cameras[0].position.set(113,83,-150);
-cameras[1].position.set(0,28,-210);
-cameras[2].position.set(210,30,0);
-for(const c of cameras){c.up.set(0,1,0);c.lookAt(0,-2,0);}
+// Camera 1 looks down over the hands from the cook's own side, rather than
+// across the table. Aim between the two palms so both remain in frame.
+// These are VISUAL inspection settings, not a measured chef's eye position.
+const viewConfigs=[
+ {position:[54,132,-126],target:[-16,-4,-12],halfHeight:84,minHalfWidth:76},
+ {position:[0,28,-210],target:[0,-2,0],halfHeight:101,minHalfWidth:0},
+ {position:[210,30,0],target:[0,-2,0],halfHeight:101,minHalfWidth:0}
+];
+for(let i=0;i<cameras.length;i++){
+ const camera=cameras[i],view=viewConfigs[i];
+ camera.position.set(...view.position);
+ camera.up.set(0,1,0);
+ camera.lookAt(...view.target);
+}
 const bodyMat=new THREE.MeshStandardMaterial({color:0xf2f4e9,roughness:.83});
 const bladeMat=new THREE.MeshStandardMaterial({color:0x8eaaaa,metalness:.34,roughness:.33,side:THREE.DoubleSide});
 const ribbonMat=new THREE.MeshStandardMaterial({color:0xc9e7df,transparent:true,opacity:.77,roughness:.6,side:THREE.DoubleSide,depthWrite:false});
@@ -175,7 +185,10 @@ function render(){
   const x=stacked?0:i*w,y=stacked?(2-i)*h:0;
   renderer.setViewport(Math.round(x),Math.round(y),Math.ceil(w),Math.ceil(h));
   renderer.setScissor(Math.round(x),Math.round(y),Math.ceil(w),Math.ceil(h));
-  const camera=cameras[i],halfHeight=101;
+  const camera=cameras[i],view=viewConfigs[i];
+  // Preserve horizontal framing in narrow desktop viewports; iPhone's
+  // stacked view remains closer to the cook's hands.
+  const halfHeight=Math.max(view.halfHeight,(view.minHalfWidth||0)*h/w);
   camera.left=-halfHeight*(w/h);camera.right=halfHeight*(w/h);
   camera.top=halfHeight;camera.bottom=-halfHeight;
   camera.updateProjectionMatrix();
