@@ -60,7 +60,7 @@ test('out-of-range fake measured angles and invalid input are rejected',()=>{
 test('standalone page references same rig, three panels, and not production main.js',()=>{
  const html=readFileSync(new URL('../experiments/pose-lab.html',import.meta.url),'utf8');
  const js=readFileSync(new URL('../experiments/pose-lab.js',import.meta.url),'utf8');
- assert.match(html,/斜め正面/);
+ assert.match(html,/持ち手目線（手元）/);
  assert.match(html,/側面/);assert.match(html,/大根の軸方向/);
  assert.match(html,/pose-lab-start.js/);
  const bootstrap=readFileSync(new URL('../experiments/pose-lab-start.js',import.meta.url),'utf8');
@@ -130,22 +130,25 @@ test('operator-facing screen order is LEFT/daikon then RIGHT/knife across both f
  assert.match(js,/poseRoot\.localToWorld\(new THREE\.Vector3\(\.\.\.hand\.palm\)\)/);
  // This is a true camera horizontal projection (right = forward cross Y up),
  // not a naïve comparison between the sign of world X and screen X.
- const projection=(world,camera)=>{
-  const forward=[-camera[0],-2-camera[1],-camera[2]];
+ const projection=(world,camera,target)=>{
+  const forward=[target[0]-camera[0],target[1]-camera[1],target[2]-camera[2]];
   const right=[-forward[2],0,forward[0]];
   const norm=Math.hypot(right[0],right[2]);
-  return (world[0]*right[0]+world[2]*right[2])/norm;
+  return ((world[0]-target[0])*right[0]+(world[2]-target[2])*right[2])/norm;
  };
  const mirrored=p=>[-p[0],p[1],p[2]];
- const cameras=[[113,83,-150],[0,28,-210]];
+ const cameras=[
+  {position:[54,132,-126],target:[-16,-4,-12]},
+  {position:[0,28,-210],target:[0,-2,0]}
+ ];
  for(const angle of [-85,-60,-5]){
    const m=createPoseLabModel({contactAngleDeg:angle});
-   for(const c of cameras){
-     const left=projection(mirrored(m.leftHand.palm),c);
-     const right=projection(mirrored(m.rightHand.palm),c);
+   for(const {position,target} of cameras){
+     const left=projection(mirrored(m.leftHand.palm),position,target);
+     const right=projection(mirrored(m.rightHand.palm),position,target);
      assert.ok(left<right,'left-hand marker should be LEFT in operator view at '+angle);
-     const unmirroredLeft=projection(m.leftHand.palm,c);
-     const unmirroredRight=projection(m.rightHand.palm,c);
+     const unmirroredLeft=projection(m.leftHand.palm,position,target);
+     const unmirroredRight=projection(m.rightHand.palm,position,target);
      assert.ok(unmirroredLeft>unmirroredRight,'old right/left inversion should be detected');
    }
  }
@@ -172,4 +175,18 @@ test('operator-side visual mirror preserves radish sidewall contact and ribbon e
  close(originalRadius,Math.hypot(reflected[1],reflected[2]));
  assert.equal(p.leftHand.role,'hold_and_rotate_daikon');
  assert.equal(p.rightHand.role,'control_knife');
+});
+
+test('operator eye camera looks down from the cook side and keeps hands framed',()=>{
+ const js=readFileSync(new URL('../experiments/pose-lab.js',import.meta.url),'utf8');
+ const html=readFileSync(new URL('../experiments/pose-lab.html',import.meta.url),'utf8');
+ assert.match(js,/position:\[54,132,-126\],target:\[-16,-4,-12\],halfHeight:84,minHalfWidth:76/);
+ assert.match(js,/Math\.max\(view\.halfHeight,\(view\.minHalfWidth\|\|0\)\*h\/w\)/);
+ assert.match(html,/本人が手元を見下ろす角度に近づけた仮カメラ/);
+ // The viewer is elevated and on the negative-Z (operator) side.
+ const camera=[54,132,-126],target=[-16,-4,-12];
+ assert.ok(camera[1]>target[1]);
+ assert.ok(camera[2]<target[2]);
+ const downward=Math.atan2(camera[1]-target[1],Math.hypot(camera[0]-target[0],camera[2]-target[2]))*180/Math.PI;
+ assert.ok(downward>35&&downward<65,'first-person workbench angle must look down at the hands');
 });
