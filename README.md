@@ -27,6 +27,7 @@
 | [docs/3D_PROGRESS_CHECKPOINT_20261019.md](docs/3D_PROGRESS_CHECKPOINT_20261019.md) | 全体12項目・3D個別8項目の確認可能な進捗台帳 |
 | [docs/PHOTO_MATCHED_ANIMATION_PIPELINE_V1.md](docs/PHOTO_MATCHED_ANIMATION_PIPELINE_V1.md) | 写実的な見本画像を実際の桂むき動作へ変換するアセット・物理統合計画 |
 | [docs/REAL_KATSURAMUKI_PHOTO_REFERENCES_30.md](docs/REAL_KATSURAMUKI_PHOTO_REFERENCES_30.md) | 調理学校・職人による実写30点の参照リンク、出典、角度照合の候補 |
+| [docs/APP022_OPERATOR_VIEW_PHOTO_BOARD_20261025.md](docs/APP022_OPERATOR_VIEW_PHOTO_BOARD_20261025.md) | **持ち手目線の実写見本ボード8件**。参照画像の出典・見下ろし角度・既存30点との重複・利用条件を分離し、外部画像をプレビュー表示（写真ファイルの転載なし） |
 | [docs/KATSURAMUKI_TECHNIQUE_REFERENCE_V1.md](docs/KATSURAMUKI_TECHNIQUE_REFERENCE_V1.md) | 手持ち桂むきの文章13件・実演動画4件、保持方式の相違・技法の検証条件 |
 | [docs/KATSURAMUKI_VIDEO_MOTION_AUDIT_V1.md](docs/KATSURAMUKI_VIDEO_MOTION_AUDIT_V1.md) | 京都調理師専門学校公式実演の字幕による8つの動作条件、映像未確認点とR0差分 |
 | [data/katsuramuki_motion_audit_20261020.json](data/katsuramuki_motion_audit_20261020.json) | 動作と字幕証拠レベル・未検証動画フレーム・確認ゲートの台帳 |
